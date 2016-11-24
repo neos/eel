@@ -7,8 +7,18 @@
         "typo3/flow": "*"
     },
     "autoload": {
-        "psr-0": {
-            "TYPO3\\Eel": "Classes"
+        "psr-4": {
+            "Neos\\Eel\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Neos\\Eel\\Tests\\": "Classes"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Neos.Eel"
         }
     }
 }

@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Eel\Tests\Unit;
+namespace Neos\Eel\Tests\Unit;
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -11,8 +11,8 @@ namespace TYPO3\Eel\Tests\Unit;
  * source code.
  */
 
-use TYPO3\Eel\Context;
-use TYPO3\Eel\CompilingEvaluator;
+use Neos\Eel\Context;
+use Neos\Eel\CompilingEvaluator;
 
 /**
  * Compiling evaluator test
@@ -53,6 +53,6 @@ class CompilingEvaluatorTest extends AbstractEvaluatorTest
         $this->assertSame($expected, $evaluator->evaluate($expression, $context), 'Code ' . $code . ' should evaluate to expected result');
 
         $wrappedExpression = '${' . $expression . '}';
-        $this->assertSame(1, preg_match(\TYPO3\Eel\Package::EelExpressionRecognizer, $wrappedExpression), 'The wrapped expression ' . $wrappedExpression . ' was not detected as Eel expression');
+        $this->assertSame(1, preg_match(\Neos\Eel\Package::EelExpressionRecognizer, $wrappedExpression), 'The wrapped expression ' . $wrappedExpression . ' was not detected as Eel expression');
     }
 }

@@ -1,7 +1,7 @@
 <?php
-namespace TYPO3\Eel\Tests\Unit\Validation;
+namespace Neos\Eel\Tests\Unit\Validation;
 
-use TYPO3\Eel\Validation\ExpressionSyntaxValidator;
+use Neos\Eel\Validation\ExpressionSyntaxValidator;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Tests\Unit\Validation\Validator\AbstractValidatorTestcase;
 

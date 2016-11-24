@@ -1,5 +1,5 @@
 #                                                                          #
-# Object Configuration for the TYPO3.Eel package                           #
+# Object Configuration for the Neos.Eel package                           #
 #                                                                          #
 # This file contains the default object configuration for the Flow         #
 # Framework. Because it is loaded at a very early stage during ini-        #
@@ -8,7 +8,7 @@
 #                                                                          #
 
 
-TYPO3\Eel\CompilingEvaluator:
+Neos\Eel\CompilingEvaluator:
   properties:
     expressionCache:
       object:
@@ -19,8 +19,8 @@ TYPO3\Eel\CompilingEvaluator:
             value: Eel_Expression_Code
 
 
-TYPO3\Eel\EelEvaluatorInterface:
-  className: TYPO3\Eel\CompilingEvaluator
+Neos\Eel\EelEvaluatorInterface:
+  className: Neos\Eel\CompilingEvaluator
 
-TYPO3\Eel\FlowQuery\OperationResolverInterface:
-  className: TYPO3\Eel\FlowQuery\OperationResolver
+Neos\Eel\FlowQuery\OperationResolverInterface:
+  className: Neos\Eel\FlowQuery\OperationResolver

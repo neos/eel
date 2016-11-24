@@ -1,9 +1,9 @@
 <?php
-namespace TYPO3\Eel;
+namespace Neos\Eel;
 // @codingStandardsIgnoreFile
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -20,7 +20,7 @@ namespace TYPO3\Eel;
  * This parser can evaluate the expression language for Flow and uses
  * the basic types from AbstractParser.
  */
-class EelParser extends \TYPO3\Eel\AbstractParser {
+class EelParser extends \Neos\Eel\AbstractParser {
 
 /*!* BasicTypes
 OffsetAccess: '[' < Expression > ']'

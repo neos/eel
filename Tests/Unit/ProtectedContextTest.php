@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Eel\Tests\Unit;
+namespace Neos\Eel\Tests\Unit;
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -11,9 +11,9 @@ namespace TYPO3\Eel\Tests\Unit;
  * source code.
  */
 
-use TYPO3\Eel\CompilingEvaluator;
-use TYPO3\Eel\ProtectedContext;
-use TYPO3\Eel\Tests\Unit\Fixtures\TestObject;
+use Neos\Eel\CompilingEvaluator;
+use Neos\Eel\ProtectedContext;
+use Neos\Eel\Tests\Unit\Fixtures\TestObject;
 use TYPO3\Flow\Tests\UnitTestCase;
 
 /**
@@ -23,7 +23,7 @@ class ProtectedContextTest extends UnitTestCase
 {
     /**
      * @test
-     * @expectedException \TYPO3\Eel\NotAllowedException
+     * @expectedException \Neos\Eel\NotAllowedException
      */
     public function methodCallToAnyValueIsNotAllowed()
     {
@@ -39,7 +39,7 @@ class ProtectedContextTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \TYPO3\Eel\NotAllowedException
+     * @expectedException \Neos\Eel\NotAllowedException
      */
     public function arrayAccessResultIsStillUntrusted()
     {
@@ -78,7 +78,7 @@ class ProtectedContextTest extends UnitTestCase
     public function methodCallToWhitelistedValueIsAllowed()
     {
         $context = new ProtectedContext([
-            'String' => new \TYPO3\Eel\Helper\StringHelper()
+            'String' => new \Neos\Eel\Helper\StringHelper()
         ]);
         $context->whitelist('String.*');
 
@@ -91,7 +91,7 @@ class ProtectedContextTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \TYPO3\Eel\NotAllowedException
+     * @expectedException \Neos\Eel\NotAllowedException
      */
     public function firstLevelFunctionsHaveToBeWhitelisted()
     {
@@ -108,7 +108,7 @@ class ProtectedContextTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \TYPO3\Eel\NotAllowedException
+     * @expectedException \Neos\Eel\NotAllowedException
      */
     public function resultOfFirstLevelMethodCallIsProtected()
     {
@@ -132,7 +132,7 @@ class ProtectedContextTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \TYPO3\Eel\NotAllowedException
+     * @expectedException \Neos\Eel\NotAllowedException
      */
     public function resultOfWhitelistedMethodCallIsProtected()
     {

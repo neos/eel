@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Eel\Tests\Unit;
+namespace Neos\Eel\Tests\Unit;
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -11,8 +11,8 @@ namespace TYPO3\Eel\Tests\Unit;
  * source code.
  */
 
-use TYPO3\Eel\Context;
-use TYPO3\Eel\EelEvaluatorInterface;
+use Neos\Eel\Context;
+use Neos\Eel\EelEvaluatorInterface;
 use TYPO3\Flow\Tests\UnitTestCase;
 
 /**
@@ -317,7 +317,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
         ];
         $c = new Context($contextArray);
 
-        $protectedContext = new \TYPO3\Eel\ProtectedContext($contextArray);
+        $protectedContext = new \Neos\Eel\ProtectedContext($contextArray);
         $protectedContext->whitelist('*');
         return [
             // Call first-level method
@@ -555,7 +555,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \TYPO3\Eel\EvaluationException
+     * @expectedException \Neos\Eel\EvaluationException
      */
     public function methodCallOfUndefinedFunctionThrowsException()
     {
@@ -571,11 +571,11 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \TYPO3\Eel\EvaluationException
+     * @expectedException \Neos\Eel\EvaluationException
      */
     public function methodCallOfUnknownMethodThrowsException()
     {
-        $o = new \TYPO3\Eel\Tests\Unit\Fixtures\TestObject();
+        $o = new \Neos\Eel\Tests\Unit\Fixtures\TestObject();
 
         $c = new Context([
             'context' => $o
@@ -656,7 +656,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
     /**
      * @test
      * @dataProvider invalidExpressions
-     * @expectedException \TYPO3\Eel\ParserException
+     * @expectedException \Neos\Eel\ParserException
      */
     public function invalidExpressionsThrowExceptions($expression)
     {
@@ -696,7 +696,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
         $this->assertSame($expected, $evaluator->evaluate($expression, $context));
 
         $wrappedExpression = '${' . $expression . '}';
-        $this->assertSame(1, preg_match(\TYPO3\Eel\Package::EelExpressionRecognizer, $wrappedExpression), 'The wrapped expression ' . $wrappedExpression . ' was not detected as Eel expression');
+        $this->assertSame(1, preg_match(\Neos\Eel\Package::EelExpressionRecognizer, $wrappedExpression), 'The wrapped expression ' . $wrappedExpression . ' was not detected as Eel expression');
     }
 
     /**

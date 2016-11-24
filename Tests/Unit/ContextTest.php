@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Eel\Tests\Unit;
+namespace Neos\Eel\Tests\Unit;
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -11,7 +11,7 @@ namespace TYPO3\Eel\Tests\Unit;
  * source code.
  */
 
-use TYPO3\Eel\Context;
+use Neos\Eel\Context;
 
 /**
  * Eel context test
@@ -118,7 +118,7 @@ class ContextTest extends \TYPO3\Flow\Tests\UnitTestCase
     {
         $simpleObject = new \stdClass();
         $simpleObject->foo = 'bar';
-        $getterObject = new \TYPO3\Eel\Tests\Unit\Fixtures\TestObject();
+        $getterObject = new \Neos\Eel\Tests\Unit\Fixtures\TestObject();
         $getterObject->setProperty('some value');
         $getterObject->setBooleanProperty(true);
 

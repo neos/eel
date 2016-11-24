@@ -1,9 +1,9 @@
 <?php
-namespace TYPO3\Eel;
+namespace Neos\Eel;
 // @codingStandardsIgnoreFile
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -48,7 +48,7 @@ Identifier: / [a-zA-Z_] [a-zA-Z0-9_\-]* /
         $result['val'] = (string)str_replace("'", "'", substr($sub['text'], 1, -1));
     }
 
-    public function StringLiteral_DoubleQuotedStringLiteral(&$result, $sub) 
+    public function StringLiteral_DoubleQuotedStringLiteral(&$result, $sub)
     {
         $result['val'] = (string)str_replace('\"', '"', substr($sub['text'], 1, -1));
     }

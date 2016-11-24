@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Eel\Tests\Unit\FlowQuery\Operations;
+namespace Neos\Eel\Tests\Unit\FlowQuery\Operations;
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -11,8 +11,8 @@ namespace TYPO3\Eel\Tests\Unit\FlowQuery\Operations;
  * source code.
  */
 
-use TYPO3\Eel\FlowQuery\FlowQuery;
-use TYPO3\Eel\FlowQuery\Operations\AddOperation;
+use Neos\Eel\FlowQuery\FlowQuery;
+use Neos\Eel\FlowQuery\Operations\AddOperation;
 
 /**
  * AddOperation test

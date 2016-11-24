@@ -1,11 +1,11 @@
 <?php
-namespace TYPO3\Eel\Tests\Unit;
+namespace Neos\Eel\Tests\Unit;
 
 /*                                                                        *
  * This script belongs to the Flow package "TYPO3.Eel".                   *
  *                                                                        */
 
-use TYPO3\Eel\Helper\SecurityHelper;
+use Neos\Eel\Helper\SecurityHelper;
 
 /**
  * Eel SecurityHelper test
