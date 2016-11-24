@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Eel\Tests\Unit;
+namespace Neos\Eel\Tests\Unit;
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -11,12 +11,12 @@ namespace TYPO3\Eel\Tests\Unit;
  * source code.
  */
 
-use TYPO3\Eel\Helper\DateHelper;
+use Neos\Eel\Helper\DateHelper;
 
 /**
  * Tests for DateHelper
  */
-class DateHelperTest extends \TYPO3\Flow\Tests\UnitTestCase
+class DateHelperTest extends \Neos\Flow\Tests\UnitTestCase
 {
     /**
      * @return array

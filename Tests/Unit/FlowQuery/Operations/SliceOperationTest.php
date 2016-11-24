@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Eel\Tests\Unit\FlowQuery\Operations;
+namespace Neos\Eel\Tests\Unit\FlowQuery\Operations;
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -11,12 +11,12 @@ namespace TYPO3\Eel\Tests\Unit\FlowQuery\Operations;
  * source code.
  */
 
-use TYPO3\Eel\FlowQuery\Operations\SliceOperation;
+use Neos\Eel\FlowQuery\Operations\SliceOperation;
 
 /**
  * SliceOperation test
  */
-class SliceOperationTest extends \TYPO3\Flow\Tests\UnitTestCase
+class SliceOperationTest extends \Neos\Flow\Tests\UnitTestCase
 {
     public function sliceExamples()
     {
@@ -38,7 +38,7 @@ class SliceOperationTest extends \TYPO3\Flow\Tests\UnitTestCase
      */
     public function evaluateSetsTheCorrectPartOfTheContextArray($value, $arguments, $expected)
     {
-        $flowQuery = new \TYPO3\Eel\FlowQuery\FlowQuery($value);
+        $flowQuery = new \Neos\Eel\FlowQuery\FlowQuery($value);
 
         $operation = new SliceOperation();
         $operation->evaluate($flowQuery, $arguments);

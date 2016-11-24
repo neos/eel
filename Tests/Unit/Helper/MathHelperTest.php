@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Eel\Tests\Unit;
+namespace Neos\Eel\Tests\Unit;
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -11,12 +11,12 @@ namespace TYPO3\Eel\Tests\Unit;
  * source code.
  */
 
-use TYPO3\Eel\Helper\MathHelper;
+use Neos\Eel\Helper\MathHelper;
 
 /**
  * Tests for MathHelper
  */
-class MathHelperTest extends \TYPO3\Flow\Tests\UnitTestCase
+class MathHelperTest extends \Neos\Flow\Tests\UnitTestCase
 {
     /**
      * Define a "not a number" constant for comparison (because NAN !== NAN)
@@ -71,8 +71,8 @@ class MathHelperTest extends \TYPO3\Flow\Tests\UnitTestCase
     public function constantsWorks($method, $expected)
     {
         $helper = new MathHelper();
-        $evaluator = new \TYPO3\Eel\InterpretedEvaluator();
-        $context = new \TYPO3\Eel\Context([
+        $evaluator = new \Neos\Eel\InterpretedEvaluator();
+        $context = new \Neos\Eel\Context([
             'Math' => $helper
         ]);
         $result = $evaluator->evaluate($method, $context);
@@ -105,8 +105,8 @@ class MathHelperTest extends \TYPO3\Flow\Tests\UnitTestCase
     public function trigonometricFunctionsWork($method, $expected)
     {
         $helper = new MathHelper();
-        $evaluator = new \TYPO3\Eel\InterpretedEvaluator();
-        $context = new \TYPO3\Eel\Context([
+        $evaluator = new \Neos\Eel\InterpretedEvaluator();
+        $context = new \Neos\Eel\Context([
             'Math' => $helper
         ]);
         $result = $evaluator->evaluate($method, $context);
@@ -205,8 +205,8 @@ class MathHelperTest extends \TYPO3\Flow\Tests\UnitTestCase
     public function variousFunctionsWork($method, $expected)
     {
         $helper = new MathHelper();
-        $evaluator = new \TYPO3\Eel\InterpretedEvaluator();
-        $context = new \TYPO3\Eel\Context([
+        $evaluator = new \Neos\Eel\InterpretedEvaluator();
+        $context = new \Neos\Eel\Context([
             'Math' => $helper
         ]);
         $result = $evaluator->evaluate($method, $context);

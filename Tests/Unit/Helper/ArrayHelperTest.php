@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Eel\Tests\Unit;
+namespace Neos\Eel\Tests\Unit;
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -11,12 +11,12 @@ namespace TYPO3\Eel\Tests\Unit;
  * source code.
  */
 
-use TYPO3\Eel\Helper\ArrayHelper;
+use Neos\Eel\Helper\ArrayHelper;
 
 /**
  * Tests for ArrayHelper
  */
-class ArrayHelperTest extends \TYPO3\Flow\Tests\UnitTestCase
+class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
 {
     public function concatExamples()
     {

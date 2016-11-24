@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Eel\Tests\Unit\Fixtures;
+namespace Neos\Eel\Tests\Unit\Fixtures;
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -11,7 +11,7 @@ namespace TYPO3\Eel\Tests\Unit\Fixtures;
  * source code.
  */
 
-use TYPO3\Eel\ProtectedContextAwareInterface;
+use Neos\Eel\ProtectedContextAwareInterface;
 
 /**
  * Test fixture object

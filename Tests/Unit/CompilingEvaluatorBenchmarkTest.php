@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Eel\Tests\Unit;
+namespace Neos\Eel\Tests\Unit;
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -11,15 +11,15 @@ namespace TYPO3\Eel\Tests\Unit;
  * source code.
  */
 
-use TYPO3\Eel\Context;
-use TYPO3\Eel\CompilingEvaluator;
+use Neos\Eel\Context;
+use Neos\Eel\CompilingEvaluator;
 
 /**
  * A benchmark to test the compiling evaluator
  *
  * @group benchmark
  */
-class CompilingEvaluatorBenchmarkTest extends \TYPO3\Flow\Tests\UnitTestCase
+class CompilingEvaluatorBenchmarkTest extends \Neos\Flow\Tests\UnitTestCase
 {
     /**
      * @test

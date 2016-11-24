@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Eel\Tests\Functional\FlowQuery\Fixtures;
+namespace Neos\Eel\Tests\Functional\FlowQuery\Fixtures;
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -11,16 +11,14 @@ namespace TYPO3\Eel\Tests\Functional\FlowQuery\Fixtures;
  * source code.
  */
 
-use TYPO3\Flow\Annotations as Flow;
-
-class ExampleFinalOperation extends \TYPO3\Eel\FlowQuery\Operations\AbstractOperation
+class ExampleFinalOperation extends \Neos\Eel\FlowQuery\Operations\AbstractOperation
 {
     protected static $shortName = 'exampleFinalOperation';
     protected static $final = true;
 
     protected static $priority = 1;
 
-    public function evaluate(\TYPO3\Eel\FlowQuery\FlowQuery $query, array $arguments)
+    public function evaluate(\Neos\Eel\FlowQuery\FlowQuery $query, array $arguments)
     {
         return 'Priority 1';
     }

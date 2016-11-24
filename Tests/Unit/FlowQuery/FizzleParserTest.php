@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Eel\Tests\Unit\FlowQuery;
+namespace Neos\Eel\Tests\Unit\FlowQuery;
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -12,14 +12,14 @@ namespace TYPO3\Eel\Tests\Unit\FlowQuery;
  */
 
 use PhpPeg\ParserTestWrapper;
-use TYPO3\Eel\FlowQuery\FizzleParser;
+use Neos\Eel\FlowQuery\FizzleParser;
 
 require_once(__DIR__ . '/../../../Resources/Private/PHP/php-peg/tests/ParserTestBase.php');
 
 /**
  * Fizzle parser test
  */
-class FizzleParserTest extends \TYPO3\Flow\Tests\UnitTestCase
+class FizzleParserTest extends \Neos\Flow\Tests\UnitTestCase
 {
     /**
      * @test

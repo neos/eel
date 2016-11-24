@@ -1,9 +1,9 @@
 <?php
-namespace TYPO3\Eel\FlowQuery;
+namespace Neos\Eel\FlowQuery;
 // @codingStandardsIgnoreFile
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -19,7 +19,7 @@ namespace TYPO3\Eel\FlowQuery;
  * This is the parser for a CSS-like selector language for Objects and TYPO3CR Nodes.
  * You can think of it as "Sizzle for PHP" (hence the name).
  */
-class FizzleParser extends \TYPO3\Eel\AbstractParser {
+class FizzleParser extends \Neos\Eel\AbstractParser {
 /*!* FizzleTypes
 
 ObjectIdentifier: / [0-9a-zA-Z_-]+ /

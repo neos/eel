@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Eel\Tests\Unit\FlowQuery\Operations;
+namespace Neos\Eel\Tests\Unit\FlowQuery\Operations;
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -11,12 +11,12 @@ namespace TYPO3\Eel\Tests\Unit\FlowQuery\Operations;
  * source code.
  */
 
-use TYPO3\Eel\FlowQuery\Operations\Object\ChildrenOperation;
+use Neos\Eel\FlowQuery\Operations\Object\ChildrenOperation;
 
 /**
  * ChildrenOperation test
  */
-class ChildrenOperationTest extends \TYPO3\Flow\Tests\UnitTestCase
+class ChildrenOperationTest extends \Neos\Flow\Tests\UnitTestCase
 {
     public function childrenExamples()
     {
@@ -42,7 +42,7 @@ class ChildrenOperationTest extends \TYPO3\Flow\Tests\UnitTestCase
      */
     public function evaluateSetsTheCorrectPartOfTheContextArray($value, $arguments, $expected)
     {
-        $flowQuery = new \TYPO3\Eel\FlowQuery\FlowQuery($value);
+        $flowQuery = new \Neos\Eel\FlowQuery\FlowQuery($value);
 
         $operation = new ChildrenOperation();
         $operation->evaluate($flowQuery, $arguments);

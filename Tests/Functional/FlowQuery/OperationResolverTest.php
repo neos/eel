@@ -1,9 +1,9 @@
 <?php
-namespace TYPO3\Eel\Tests\Functional\FlowQuery;
+namespace Neos\Eel\Tests\Functional\FlowQuery;
 
-use TYPO3\Eel\FlowQuery\OperationResolver;
-use TYPO3\Eel\FlowQuery\OperationResolverInterface;
-use TYPO3\Flow\Tests\FunctionalTestCase;
+use Neos\Eel\FlowQuery\OperationResolver;
+use Neos\Eel\FlowQuery\OperationResolverInterface;
+use Neos\Flow\Tests\FunctionalTestCase;
 
 /**
  * Test cases for operation resolver

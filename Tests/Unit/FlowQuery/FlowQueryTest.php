@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Eel\Tests\Unit\FlowQuery;
+namespace Neos\Eel\Tests\Unit\FlowQuery;
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -11,13 +11,13 @@ namespace TYPO3\Eel\Tests\Unit\FlowQuery;
  * source code.
  */
 
-use TYPO3\Eel\FlowQuery\FlowQuery;
-use TYPO3\Eel\FlowQuery\OperationResolver;
-use TYPO3\Flow\ObjectManagement\ObjectManagerInterface;
-use TYPO3\Flow\Persistence\PersistenceManagerInterface;
-use TYPO3\Flow\Reflection\ObjectAccess;
-use TYPO3\Flow\Tests\UnitTestCase;
-use TYPO3\Eel\FlowQuery\Operations;
+use Neos\Eel\FlowQuery\FlowQuery;
+use Neos\Eel\FlowQuery\OperationResolver;
+use Neos\Flow\ObjectManagement\ObjectManagerInterface;
+use Neos\Flow\Persistence\PersistenceManagerInterface;
+use Neos\Utility\ObjectAccess;
+use Neos\Flow\Tests\UnitTestCase;
+use Neos\Eel\FlowQuery\Operations;
 
 /**
  * FlowQuery test
@@ -480,7 +480,7 @@ class FlowQueryTest extends UnitTestCase
     /**
      * @dataProvider dataProviderForErrorQueries
      * @test
-     * @expectedException \TYPO3\Eel\FlowQuery\FizzleException
+     * @expectedException \Neos\Eel\FlowQuery\FizzleException
      */
     public function errorQueriesThrowError($expression)
     {

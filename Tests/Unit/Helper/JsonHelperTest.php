@@ -1,8 +1,8 @@
 <?php
-namespace TYPO3\Eel\Tests\Unit;
+namespace Neos\Eel\Tests\Unit;
 
 /*
- * This file is part of the TYPO3.Eel package.
+ * This file is part of the Neos.Eel package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -11,12 +11,12 @@ namespace TYPO3\Eel\Tests\Unit;
  * source code.
  */
 
-use TYPO3\Eel\Helper\JsonHelper;
+use Neos\Eel\Helper\JsonHelper;
 
 /**
  * Tests for JsonHelper
  */
-class JsonHelperTest extends \TYPO3\Flow\Tests\UnitTestCase
+class JsonHelperTest extends \Neos\Flow\Tests\UnitTestCase
 {
     public function stringifyExamples()
     {
