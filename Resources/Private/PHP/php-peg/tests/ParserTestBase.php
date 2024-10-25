@@ -13,7 +13,7 @@ class ParserTestWrapper {
     private FizzleParserTest $testcase;
     private string $class;
 
-    function __construct($testcase, $class) {
+	function __construct(FizzleParserTest $testcase, string $class) {
 		$this->testcase = $testcase;
 		$this->class = $class;
 	}
