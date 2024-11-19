@@ -18,7 +18,7 @@ use Neos\Eel\Helper\JsonHelper;
  */
 class JsonHelperTest extends \Neos\Flow\Tests\UnitTestCase
 {
-    public static function stringifyExamples()
+    public static function stringifyExamples(): array
     {
         return [
             'string value' => [
@@ -47,7 +47,7 @@ class JsonHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $result);
     }
 
-    public static function parseExamples()
+    public static function parseExamples(): array
     {
         return [
             'string value' => [
