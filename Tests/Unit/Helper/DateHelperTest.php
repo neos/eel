@@ -127,6 +127,72 @@ class DateHelperTest extends \Neos\Flow\Tests\UnitTestCase
     /**
      * @test
      */
+    public function formatCldrDate()
+    {
+        $date = \DateTime::createFromFormat('Y-m-d H:i:s', '2013-07-03 12:34:56');
+        $formatLength = 'long';
+        $localeString = 'en';
+
+        $locale = new Locale('en');
+        $expectedString = '2013-07-03 12:34:56';
+
+        $formatMock = $this->createMock(\Neos\Flow\I18n\Formatter\DatetimeFormatter::class);
+        $formatMock->expects(self::atLeastOnce())->method('formatDate')->with($date, $locale, $formatLength)->willReturn($expectedString);
+
+        $helper = new DateHelper();
+        $this->inject($helper, 'datetimeFormatter', $formatMock);
+
+        $result = $helper->formatCldrDate($date, $formatLength, $localeString);
+        $this->assertEquals($expectedString, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function formatCldrTime()
+    {
+        $date = \DateTime::createFromFormat('Y-m-d H:i:s', '2013-07-03 12:34:56');
+        $formatLength = 'long';
+        $localeString = 'en';
+
+        $locale = new Locale('en');
+        $expectedString = '2013-07-03 12:34:56';
+
+        $formatMock = $this->createMock(\Neos\Flow\I18n\Formatter\DatetimeFormatter::class);
+        $formatMock->expects(self::atLeastOnce())->method('formatTime')->with($date, $locale, $formatLength)->willReturn($expectedString);
+
+        $helper = new DateHelper();
+        $this->inject($helper, 'datetimeFormatter', $formatMock);
+
+        $result = $helper->formatCldrTime($date, $formatLength, $localeString);
+        $this->assertEquals($expectedString, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function formatCldrDateTime()
+    {
+        $date = \DateTime::createFromFormat('Y-m-d H:i:s', '2013-07-03 12:34:56');
+        $formatLength = 'long';
+        $localeString = 'en';
+
+        $locale = new Locale('en');
+        $expectedString = '2013-07-03 12:34:56';
+
+        $formatMock = $this->createMock(\Neos\Flow\I18n\Formatter\DatetimeFormatter::class);
+        $formatMock->expects(self::atLeastOnce())->method('formatDateTime')->with($date, $locale, $formatLength)->willReturn($expectedString);
+
+        $helper = new DateHelper();
+        $this->inject($helper, 'datetimeFormatter', $formatMock);
+
+        $result = $helper->formatCldrDateTime($date, $formatLength, $localeString);
+        $this->assertEquals($expectedString, $result);
+    }
+
+    /**
+     * @test
+     */
     public function nowWorks()
     {
         $helper = new DateHelper();

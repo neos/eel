@@ -1,4 +1,5 @@
 <?php
+
 namespace Neos\Eel\Helper;
 
 /*
@@ -13,6 +14,7 @@ namespace Neos\Eel\Helper;
 
 use Neos\Flow\Annotations as Flow;
 use Neos\Eel\ProtectedContextAwareInterface;
+use Neos\Flow\I18n\Cldr\Reader\DatesReader;
 use Neos\Flow\I18n\Formatter\DatetimeFormatter;
 use Neos\Flow\I18n\Locale;
 use Neos\Flow\I18n\Service as I18nService;
@@ -91,12 +93,50 @@ class DateHelper implements ProtectedContextAwareInterface
         if (empty($cldrFormat)) {
             throw new \InvalidArgumentException('CLDR date formatting parameter not passed.');
         }
-        if ($locale === null) {
-            $useLocale = $this->localizationService->getConfiguration()->getCurrentLocale();
-        } else {
-            $useLocale = new Locale($locale);
-        }
+        $useLocale = $this->getLocaleOrDefault($locale);
         return $this->datetimeFormatter->formatDateTimeWithCustomPattern($date, $cldrFormat, $useLocale);
+    }
+
+    /**
+     * Format a date to a string with a given cldr formatLength
+     *
+     * @param \DateTimeInterface $dateTime
+     * @param string $formatLength FormatLength in CLDR format ("Full", "Long", "Medium", "Short") (see https://cldr.unicode.org/translation/date-time/date-time-patterns#basic-date-formats)
+     * @param null|string $locale String locale - example (de|en|en_US). If not provided the current locale of I18nService is used.
+     * @return string
+     */
+    public function formatCldrDate(\DateTimeInterface $dateTime, string $formatLength = DatesReader::FORMAT_LENGTH_DEFAULT, ?string $locale = null): string
+    {
+        $locale = $this->getLocaleOrDefault($locale);
+        return $this->datetimeFormatter->formatDate($dateTime, $locale, $formatLength);
+    }
+
+    /**
+     * Format a time to a string with a given cldr formatLength
+     *
+     * @param \DateTimeInterface $dateTime
+     * @param string $formatLength FormatLength in CLDR format ("Full", "Long", "Medium", "Short") (see https://cldr.unicode.org/translation/date-time/date-time-patterns#basic-time-formats)
+     * @param null|string $locale String locale - example (de|en|en_US). If not provided the current locale of I18nService is used.
+     * @return string
+     */
+    public function formatCldrTime(\DateTimeInterface $dateTime, string $formatLength = DatesReader::FORMAT_LENGTH_DEFAULT, ?string $locale = null): string
+    {
+        $locale = $this->getLocaleOrDefault($locale);
+        return $this->datetimeFormatter->formatTime($dateTime, $locale, $formatLength);
+    }
+
+    /**
+     * Format a datetime to a string with a given cldr formatLength
+     *
+     * @param \DateTimeInterface $dateTime
+     * @param string $formatLength FormatLength in CLDR format ("Full", "Long", "Medium", "Short") (see https://cldr.unicode.org/translation/date-time/date-time-patterns#basic-date-formats and https://cldr.unicode.org/translation/date-time/date-time-patterns#basic-date-formats)
+     * @param null|string $locale String locale - example (de|en|en_US). If not provided the current locale of I18nService is used.
+     * @return string
+     */
+    public function formatCldrDateTime(\DateTimeInterface $dateTime, string $formatLength = DatesReader::FORMAT_LENGTH_DEFAULT, ?string $locale = null): string
+    {
+        $locale = $this->getLocaleOrDefault($locale);
+        return $this->datetimeFormatter->formatDateTime($dateTime, $locale, $formatLength);
     }
 
     /**
@@ -247,6 +287,14 @@ class DateHelper implements ProtectedContextAwareInterface
     public function second(\DateTimeInterface $dateTime)
     {
         return (integer)$dateTime->format('s');
+    }
+
+    private function getLocaleOrDefault(?string $locale): Locale
+    {
+        if ($locale === null) {
+            return $this->localizationService->getConfiguration()->getCurrentLocale();
+        }
+        return new Locale($locale);
     }
 
     /**
