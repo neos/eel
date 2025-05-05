@@ -25,7 +25,6 @@ class FizzleParser extends \Neos\Eel\AbstractParser {
 /*!* FizzleTypes
 
 ObjectIdentifier: / [0-9a-zA-Z_-]+ /
-NodeName: / [a-z0-9\-]+ /
 
 */
 
@@ -63,7 +62,7 @@ PropertyNameFilter: Identifier
 		$result['Identifier'] = $sub['text'];
 	}
 
-PathFilter: ( '/' ( NodeName ( '/' NodeName )* )? ) | ( NodeName '/' NodeName ( '/' NodeName )* )
+PathFilter: ( '/' ( ObjectIdentifier  ( '/' ObjectIdentifier  )* )? ) | ( ObjectIdentifier  '/' ObjectIdentifier  ( '/' ObjectIdentifier )* )
 
 AttributeFilter:
   '[' S
