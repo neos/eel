@@ -18,7 +18,7 @@ use Neos\Eel\FlowQuery\Operations\SliceOperation;
  */
 class SliceOperationTest extends \Neos\Flow\Tests\UnitTestCase
 {
-    public function sliceExamples()
+    public static function sliceExamples()
     {
         return [
             'no argument' => [['a', 'b', 'c'], [], ['a', 'b', 'c']],

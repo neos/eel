@@ -21,7 +21,7 @@ use Neos\Flow\Tests\UnitTestCase;
  */
 class UniqueOperationTest extends UnitTestCase
 {
-    public function uniqueExamples(): \Generator
+    public static function uniqueExamples(): \Generator
     {
         yield 'numeric indices' => [
             ['bar', 12, 'two', 'bar', 13, 12, false, 0, null],

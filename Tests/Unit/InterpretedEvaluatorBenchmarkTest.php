@@ -16,9 +16,8 @@ use Neos\Eel\InterpretedEvaluator;
 
 /**
  * A benchmark to test the interpreting evaluator
- *
- * @group benchmark
  */
+#[\PHPUnit\Framework\Attributes\Group('benchmark')]
 class InterpretedEvaluatorBenchmarkTest extends \Neos\Flow\Tests\UnitTestCase
 {
     /**

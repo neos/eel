@@ -18,7 +18,7 @@ use Neos\Eel\FlowQuery\Operations\Object\ChildrenOperation;
  */
 class ChildrenOperationTest extends \Neos\Flow\Tests\UnitTestCase
 {
-    public function childrenExamples()
+    public static function childrenExamples()
     {
         $object1 = (object) ['a' => 'b'];
         $object2 = (object) ['c' => 'd'];

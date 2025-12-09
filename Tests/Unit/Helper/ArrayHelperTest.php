@@ -19,7 +19,7 @@ use Neos\Eel\Tests\Unit\Fixtures\TestArrayIterator;
  */
 class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
 {
-    public function concatExamples()
+    public static function concatExamples()
     {
         return [
             'alpha and numeric values' => [
@@ -52,7 +52,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $result);
     }
 
-    public function joinExamples()
+    public static function joinExamples()
     {
         return [
             'words with default separator' => [['a', 'b', 'c'], null, 'a,b,c'],
@@ -77,7 +77,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $result);
     }
 
-    public function sliceExamples()
+    public static function sliceExamples()
     {
         return [
             'positive begin without end' => [['a', 'b', 'c', 'd', 'e'], 2, null, ['c', 'd', 'e']],
@@ -105,7 +105,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $result);
     }
 
-    public function reverseExamples()
+    public static function reverseExamples()
     {
         return [
             'empty array' => [[], []],
@@ -127,7 +127,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $result);
     }
 
-    public function keysExamples()
+    public static function keysExamples()
     {
         return [
             'empty array' => [[], []],
@@ -149,7 +149,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $result);
     }
 
-    public function valuesExamples(): array
+    public static function valuesExamples(): array
     {
         return [
             'empty array' => [[], []],
@@ -173,7 +173,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $result);
     }
 
-    public function lengthExamples()
+    public static function lengthExamples()
     {
         return [
             'empty array' => [[], 0],
@@ -194,7 +194,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $result);
     }
 
-    public function indexOfExamples()
+    public static function indexOfExamples()
     {
         return [
             'empty array' => [[], 42, null, -1],
@@ -221,7 +221,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $result);
     }
 
-    public function isEmptyExamples()
+    public static function isEmptyExamples()
     {
         return [
             'empty array' => [[], true],
@@ -242,7 +242,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $result);
     }
 
-    public function firstExamples()
+    public static function firstExamples()
     {
         return [
             'empty array' => [[], false],
@@ -265,7 +265,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $result);
     }
 
-    public function lastExamples()
+    public static function lastExamples()
     {
         return [
             'empty array' => [[], false],
@@ -288,7 +288,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $result);
     }
 
-    public function randomExamples()
+    public static function randomExamples()
     {
         return [
             'empty array' => [[], false],
@@ -314,7 +314,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, in_array($result, $array));
     }
 
-    public function sortExamples()
+    public static function sortExamples()
     {
         return [
             'empty array' => [[], []],
@@ -336,7 +336,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $sortedArray);
     }
 
-    public function ksortExamples()
+    public static function ksortExamples()
     {
         return [
             'no keys' => [['z', '7d', 'i', '7', 'm', 8, 3, 'q'], ['z', '7d', 'i', '7', 'm', 8, 3, 'q']],
@@ -357,7 +357,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $sortedArray);
     }
 
-    public function shuffleExamples()
+    public static function shuffleExamples()
     {
         return [
             'empty array' => [[]],
@@ -384,7 +384,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($array, $shuffledArray);
     }
 
-    public function uniqueExamples()
+    public static function uniqueExamples()
     {
         return [
             'numeric indices' => [
@@ -417,7 +417,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $uniqueddArray);
     }
 
-    public function popExamples()
+    public static function popExamples()
     {
         return [
             'empty array' => [[], []],
@@ -439,7 +439,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $poppedArray);
     }
 
-    public function pushExamples()
+    public static function pushExamples()
     {
         return [
             'empty array' => [[], 42, 'foo', [42, 'foo']],
@@ -466,7 +466,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $pushedArray);
     }
 
-    public function shiftExamples()
+    public static function shiftExamples()
     {
         return [
             'empty array' => [[], []],
@@ -488,7 +488,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $shiftedArray);
     }
 
-    public function unshiftExamples()
+    public static function unshiftExamples()
     {
         return [
             'empty array' => [[], 'abc', 42, [42, 'abc']],
@@ -510,7 +510,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $unshiftedArray);
     }
 
-    public function spliceExamples()
+    public static function spliceExamples()
     {
         return [
             'empty array' => [[], [42, 'abc', 'Neos'], 2, 2, 42, 'abc', 'Neos'],
@@ -542,7 +542,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals([0, 1, 4, 5], $splicedArray);
     }
 
-    public function flipExamples()
+    public static function flipExamples()
     {
         return [
             'array with values' => [['a', 'b', 'c'], ['a' => 0, 'b' => 1, 'c' => 2]],
@@ -563,7 +563,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $result);
     }
 
-    public function rangeExamples()
+    public static function rangeExamples()
     {
         return [
             'array from one to three' => [
@@ -593,7 +593,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
     }
 
 
-    public function setExamples()
+    public static function setExamples()
     {
         return [
             'add key in empty array' => [
@@ -626,7 +626,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $result);
     }
 
-    public function mapExamples()
+    public static function mapExamples()
     {
         return [
             'map squares' => [
@@ -671,7 +671,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertSame($expected, $result);
     }
 
-    public function reduceExamples()
+    public static function reduceExamples()
     {
         return [
             'sum with initial value' => [
@@ -736,7 +736,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertSame($expected, $result);
     }
 
-    public function filterExamples()
+    public static function filterExamples()
     {
         return [
             'test by value' => [
@@ -794,7 +794,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertSame($expected, $result);
     }
 
-    public function someExamples()
+    public static function someExamples()
     {
         $isLongWord = function ($x) {
             return strlen($x) >= 8;
@@ -842,7 +842,7 @@ class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertSame($expected, $result);
     }
 
-    public function everyExamples()
+    public static function everyExamples()
     {
         $isMediumWord = function ($x) {
             return strlen($x) >= 4;

@@ -23,7 +23,7 @@ class ContextTest extends \Neos\Flow\Tests\UnitTestCase
      *
      * @return array
      */
-    public function simpleValues()
+    public static function simpleValues()
     {
         return [
             ['Test', 'Test'],
@@ -53,7 +53,7 @@ class ContextTest extends \Neos\Flow\Tests\UnitTestCase
      *
      * @return array
      */
-    public function arrayValues()
+    public static function arrayValues()
     {
         return [
             [[], []],
@@ -83,7 +83,7 @@ class ContextTest extends \Neos\Flow\Tests\UnitTestCase
      *
      * @return array
      */
-    public function arrayGetValues()
+    public static function arrayGetValues()
     {
         return [
             [[], 'foo', null],
@@ -114,7 +114,7 @@ class ContextTest extends \Neos\Flow\Tests\UnitTestCase
      *
      * @return array
      */
-    public function objectGetValues()
+    public static function objectGetValues()
     {
         $simpleObject = new \stdClass();
         $simpleObject->foo = 'bar';

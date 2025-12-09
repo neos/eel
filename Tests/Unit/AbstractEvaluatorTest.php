@@ -27,7 +27,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
     /**
      * @return array
      */
-    public function integerLiterals()
+    public static function integerLiterals()
     {
         $c = new Context();
         return [
@@ -45,7 +45,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
     /**
      * @return array
      */
-    public function floatLiterals()
+    public static function floatLiterals()
     {
         $c = new Context();
         return [
@@ -58,7 +58,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
     /**
      * @return array
      */
-    public function stringLiterals()
+    public static function stringLiterals()
     {
         $c = new Context();
         return [
@@ -80,7 +80,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
     /**
      * @return array
      */
-    public function stringConcatenations()
+    public static function stringConcatenations()
     {
         $c = new Context(['foo' => 'bar']);
         return [
@@ -98,7 +98,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
     /**
      * @return array
      */
-    public function notExpressions()
+    public static function notExpressions()
     {
         $c = new Context();
         return [
@@ -116,7 +116,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
     /**
      * @return array
      */
-    public function comparisonExpressions()
+    public static function comparisonExpressions()
     {
         $c = new Context([
             'answer' => 42
@@ -151,7 +151,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
     /**
      * @return array
      */
-    public function calculationExpressions()
+    public static function calculationExpressions()
     {
         $c = new Context([
             'answer' => 42,
@@ -179,7 +179,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
     /**
      * @return array
      */
-    public function combinedExpressions()
+    public static function combinedExpressions()
     {
         $c = new Context();
         return [
@@ -195,7 +195,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
     /**
      * @return array
      */
-    public function booleanExpressions()
+    public static function booleanExpressions()
     {
         $c = new Context([
             'trueVar' => true,
@@ -233,7 +233,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
     /**
      * @return array
      */
-    public function objectPathOnArrayExpressions()
+    public static function objectPathOnArrayExpressions()
     {
         // Wrap a value inside a context
         $c = new Context([
@@ -269,7 +269,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
     /**
      * @return array
      */
-    public function objectPathOnObjectExpressions()
+    public static function objectPathOnObjectExpressions()
     {
         $obj = new Fixtures\TestObject();
         $obj->setProperty('Test');
@@ -293,7 +293,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
     /**
      * @return array
      */
-    public function methodCallExpressions()
+    public static function methodCallExpressions()
     {
         // Wrap an array with functions inside a context
         $contextArray = [
@@ -346,7 +346,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
     /**
      * @return array
      */
-    public function arrayLiteralExpressions()
+    public static function arrayLiteralExpressions()
     {
         $c = new Context([
             'test' => function ($string) {
@@ -380,7 +380,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
     /**
      * @return array
      */
-    public function objectLiteralExpressions()
+    public static function objectLiteralExpressions()
     {
         $c = new Context([
         ]);
@@ -406,7 +406,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
     /**
      * @return array
      */
-    public function conditionalOperatorExpressions()
+    public static function conditionalOperatorExpressions()
     {
         $c = new Context([
             'answer' => 42,
@@ -655,7 +655,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
     /**
      * @return array
      */
-    public function invalidExpressions()
+    public static function invalidExpressions()
     {
         return [
             // Completely insane expression

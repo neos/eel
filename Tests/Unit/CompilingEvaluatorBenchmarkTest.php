@@ -16,9 +16,8 @@ use Neos\Eel\CompilingEvaluator;
 
 /**
  * A benchmark to test the compiling evaluator
- *
- * @group benchmark
  */
+#[\PHPUnit\Framework\Attributes\Group('benchmark')]
 class CompilingEvaluatorBenchmarkTest extends \Neos\Flow\Tests\UnitTestCase
 {
     /**

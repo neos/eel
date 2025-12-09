@@ -24,7 +24,7 @@ class MathHelperTest extends \Neos\Flow\Tests\UnitTestCase
      */
     const NAN = 'NAN';
 
-    public function roundExamples()
+    public static function roundExamples()
     {
         return [
             'round with default precision' => [123.4567, null, 123],
@@ -51,7 +51,7 @@ class MathHelperTest extends \Neos\Flow\Tests\UnitTestCase
         }
     }
 
-    public function constantsExamples()
+    public static function constantsExamples()
     {
         return [
             'E' => ['Math.E', 2.718],
@@ -80,7 +80,7 @@ class MathHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEqualsWithDelta($expected, $result, 0.001, 'Rounded value did not match');
     }
 
-    public function trigonometricExamples()
+    public static function trigonometricExamples()
     {
         return [
             'acos(x)' => ['Math.acos(-1)', 3.14159],
@@ -114,7 +114,7 @@ class MathHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEqualsWithDelta($expected, $result, 0.001, 'Rounded value did not match');
     }
 
-    public function variousExamples()
+    public static function variousExamples()
     {
         return [
             'abs("-1")' => ['Math.abs("-1")', 1],
@@ -218,7 +218,7 @@ class MathHelperTest extends \Neos\Flow\Tests\UnitTestCase
         }
     }
 
-    public function finiteAndNanExamples()
+    public static function finiteAndNanExamples()
     {
         return [
             'isFinite(42)' => ['isFinite', 42, true],

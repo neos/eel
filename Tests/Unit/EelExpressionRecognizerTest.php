@@ -17,7 +17,7 @@ use Neos\Eel\Utility;
 
 class EelExpressionRecognizerTest extends \Neos\Flow\Tests\UnitTestCase
 {
-    public function wrappedEelExpressionProvider()
+    public static function wrappedEelExpressionProvider()
     {
         yield "simple" => [
             "wrapped" => '${foo + bar}',
@@ -60,7 +60,7 @@ class EelExpressionRecognizerTest extends \Neos\Flow\Tests\UnitTestCase
         );
     }
 
-    public function notAnExpressionProvider()
+    public static function notAnExpressionProvider()
     {
         yield "missing object brace" => [
             '${{foo: {}}',

@@ -23,7 +23,7 @@ class CompilingEvaluatorTest extends AbstractEvaluatorTest
     /**
      * @return array
      */
-    public function arrowFunctionExpressions()
+    public static function arrowFunctionExpressions()
     {
         $c = new Context([
             'items' => [1, 2, 3, 4],

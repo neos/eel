@@ -22,7 +22,7 @@ class DateHelperTest extends \Neos\Flow\Tests\UnitTestCase
     /**
      * @return array
      */
-    public function parseExamples()
+    public static function parseExamples()
     {
         $date = \DateTime::createFromFormat('Y-m-d', '2013-07-03');
         $dateTime = \DateTime::createFromFormat('Y-m-d H:i:s', '2013-07-03 12:34:56');
@@ -47,7 +47,7 @@ class DateHelperTest extends \Neos\Flow\Tests\UnitTestCase
     /**
      * @return array
      */
-    public function formatExamples()
+    public static function formatExamples()
     {
         $dateTime = \DateTime::createFromFormat('Y-m-d H:i:s', '2013-07-03 12:34:56');
         return [
@@ -228,7 +228,7 @@ class DateHelperTest extends \Neos\Flow\Tests\UnitTestCase
     /**
      * @return array
      */
-    public function calculationExamples()
+    public static function calculationExamples()
     {
         $dateTime = \DateTime::createFromFormat('Y-m-d H:i:s', '2013-07-03 12:34:56');
         return [

@@ -196,7 +196,7 @@ class FlowQueryTest extends UnitTestCase
     /**
      * @return array
      */
-    public function dataProviderForFilter()
+    public static function dataProviderForFilter()
     {
         $myObject = new \stdClass();
         $myObject->myProperty = 'asdf';
@@ -502,7 +502,7 @@ class FlowQueryTest extends UnitTestCase
     /**
      * @return array
      */
-    public function dataProviderForChildrenAndFilterAndProperty()
+    public static function dataProviderForChildrenAndFilterAndProperty()
     {
         $person1 = new \stdClass();
         $person1->name = 'Kasper Skaarhoj';
@@ -601,7 +601,7 @@ class FlowQueryTest extends UnitTestCase
     /**
      * @return array
      */
-    public function dataProviderForErrorQueries()
+    public static function dataProviderForErrorQueries()
     {
         return [
             ['$query->children()'],
