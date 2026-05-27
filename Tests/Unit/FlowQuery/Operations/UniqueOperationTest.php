@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit\FlowQuery\Operations;
 
 /*
@@ -19,7 +22,7 @@ use Neos\Flow\Tests\UnitTestCase;
 /**
  * UniqueOperation test
  */
-class UniqueOperationTest extends UnitTestCase
+final class UniqueOperationTest extends UnitTestCase
 {
     public static function uniqueExamples(): \Generator
     {

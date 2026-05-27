@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit;
 
 /*
@@ -15,7 +17,7 @@ namespace Neos\Eel\Tests\Unit;
 use Neos\Eel\Package;
 use Neos\Eel\Utility;
 
-class EelExpressionRecognizerTest extends \Neos\Flow\Tests\UnitTestCase
+final class EelExpressionRecognizerTest extends \Neos\Flow\Tests\UnitTestCase
 {
     public static function wrappedEelExpressionProvider(): \Generator
     {
@@ -100,6 +102,6 @@ class EelExpressionRecognizerTest extends \Neos\Flow\Tests\UnitTestCase
         $malformedExpression = '${abc abc abc abc abc abc abc abc abc abc abc ...';
         $return = preg_match(Package::EelExpressionRecognizer, $malformedExpression);
         self::assertNotFalse($return, "Regex not efficient");
-        self::assertEquals(0, $return, "Regex should not match");
+        self::assertSame(0, $return, "Regex should not match");
     }
 }

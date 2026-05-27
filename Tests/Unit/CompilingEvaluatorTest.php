@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit;
 
 /*
@@ -19,9 +22,9 @@ use PHPUnit\Framework\MockObject\MockObject;
 /**
  * Compiling evaluator test
  */
-class CompilingEvaluatorTest extends AbstractEvaluatorTest
+final class CompilingEvaluatorTest extends AbstractEvaluatorTest
 {
-    public static function arrowFunctionExpressions(): array
+    public static function arrowFunctionExpressions(): \Iterator
     {
         $c = new Context([
             'items' => [1, 2, 3, 4],
@@ -38,13 +41,11 @@ class CompilingEvaluatorTest extends AbstractEvaluatorTest
                 return $array;
             }
         ]);
-        return [
-            // Arrow function without parentheses
-            ['map(items, x => x * x)', $c, [1, 4, 9, 16]],
-            // Arrow function with parentheses
-            ['map(items, (x) => x * x)', $c, [1, 4, 9, 16]],
-            ['mapWithIndex(items, (v, k) => k * v)', $c, [0, 2, 6, 12]],
-        ];
+        // Arrow function without parentheses
+        yield ['map(items, x => x * x)', $c, [1, 4, 9, 16]];
+        // Arrow function with parentheses
+        yield ['map(items, (x) => x * x)', $c, [1, 4, 9, 16]];
+        yield ['mapWithIndex(items, (v, k) => k * v)', $c, [0, 2, 6, 12]];
     }
 
     /**

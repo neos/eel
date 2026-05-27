@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit\Validation;
 
 use Neos\Eel\Validation\ExpressionSyntaxValidator;
@@ -7,7 +10,7 @@ use Neos\Flow\Tests\Unit\Validation\Validator\AbstractValidatorTestcase;
 /**
  * Tests for the ExpressionSyntaxValidator
  */
-class ExpressionSyntaxValidatorTest extends AbstractValidatorTestcase
+final class ExpressionSyntaxValidatorTest extends AbstractValidatorTestcase
 {
     /**
      * @var string

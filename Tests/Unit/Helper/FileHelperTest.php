@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit;
 
 /*
@@ -18,7 +21,7 @@ use org\bovigo\vfs\vfsStream;
 /**
  * Test for FileHelper
  */
-class FileHelperTest extends UnitTestCase
+final class FileHelperTest extends UnitTestCase
 {
     protected function setUp(): void
     {
@@ -36,7 +39,7 @@ class FileHelperTest extends UnitTestCase
 
         $fileHelper = new FileHelper();
 
-        self::assertEquals($fileContent, $fileHelper->readFile($filepath));
+        self::assertSame($fileContent, $fileHelper->readFile($filepath));
     }
 
     /**

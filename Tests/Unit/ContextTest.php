@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit;
 
 /*
@@ -16,22 +19,20 @@ use Neos\Eel\Context;
 /**
  * Eel context test
  */
-class ContextTest extends \Neos\Flow\Tests\UnitTestCase
+final class ContextTest extends \Neos\Flow\Tests\UnitTestCase
 {
     /**
      * Data provider with simple values
      *
-     * @return array
+     * @return \Iterator<(int | string), mixed>
      */
-    public static function simpleValues(): array
+    public static function simpleValues(): \Iterator
     {
-        return [
-            ['Test', 'Test'],
-            [true, true],
-            [42, 42],
-            [7.0, 7.0],
-            [null, null]
-        ];
+        yield ['Test', 'Test'];
+        yield [true, true];
+        yield [42, 42];
+        yield [7.0, 7.0];
+        yield [null, null];
     }
 
     /**
@@ -51,17 +52,15 @@ class ContextTest extends \Neos\Flow\Tests\UnitTestCase
     /**
      * Data provider with array values
      *
-     * @return array
+     * @return \Iterator<(int | string), mixed>
      */
-    public static function arrayValues(): array
+    public static function arrayValues(): \Iterator
     {
-        return [
-            [[], []],
-            [[1, 2, 3], [1, 2, 3]],
-            // Unwrap has to be recursive
-            [[new Context('Foo')], ['Foo']],
-            [['arr' => [new Context('Foo')]], ['arr' => ['Foo']]]
-        ];
+        yield [[], []];
+        yield [[1, 2, 3], [1, 2, 3]];
+        // Unwrap has to be recursive
+        yield [[new Context('Foo')], ['Foo']];
+        yield [['arr' => [new Context('Foo')]], ['arr' => ['Foo']]];
     }
 
     /**
@@ -81,17 +80,15 @@ class ContextTest extends \Neos\Flow\Tests\UnitTestCase
     /**
      * Data provider with array values
      *
-     * @return array
+     * @return \Iterator<(int | string), mixed>
      */
-    public static function arrayGetValues(): array
+    public static function arrayGetValues(): \Iterator
     {
-        return [
-            [[], 'foo', null],
-            [['foo' => 'bar'], 'foo', 'bar'],
-            [[1, 2, 3], '1', 2],
-            [['foo' => ['bar' => 'baz']], 'foo', ['bar' => 'baz']],
-            [new \ArrayObject(['foo' => 'bar']), 'foo', 'bar']
-        ];
+        yield [[], 'foo', null];
+        yield [['foo' => 'bar'], 'foo', 'bar'];
+        yield [[1, 2, 3], '1', 2];
+        yield [['foo' => ['bar' => 'baz']], 'foo', ['bar' => 'baz']];
+        yield [new \ArrayObject(['foo' => 'bar']), 'foo', 'bar'];
     }
 
     /**

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit\FlowQuery\Operations;
 
 /*
@@ -17,9 +20,9 @@ use Neos\Eel\FlowQuery\Operations\Object\ChildrenOperation;
 /**
  * ChildrenOperation test
  */
-class ChildrenOperationTest extends \Neos\Flow\Tests\UnitTestCase
+final class ChildrenOperationTest extends \Neos\Flow\Tests\UnitTestCase
 {
-    public static function childrenExamples(): array
+    public static function childrenExamples(): \Iterator
     {
         $object1 = (object) ['a' => 'b'];
         $object2 = (object) ['c' => 'd'];
@@ -29,12 +32,9 @@ class ChildrenOperationTest extends \Neos\Flow\Tests\UnitTestCase
             'keyTowardsArray' => [$object1, $object2],
             'keyTowardsTraversable' => new \ArrayIterator([$object1, $object2])
         ];
-
-        return [
-            'traversal of objects' => [[$exampleArray], ['keyTowardsObject'], [$exampleArray['keyTowardsObject']]],
-            'traversal of arrays unrolls them' => [[$exampleArray], ['keyTowardsArray'], [$object1, $object2]],
-            'traversal of traversables unrolls them' => [[$exampleArray], ['keyTowardsTraversable'], [$object1, $object2]],
-        ];
+        yield 'traversal of objects' => [[$exampleArray], ['keyTowardsObject'], [$exampleArray['keyTowardsObject']]];
+        yield 'traversal of arrays unrolls them' => [[$exampleArray], ['keyTowardsArray'], [$object1, $object2]];
+        yield 'traversal of traversables unrolls them' => [[$exampleArray], ['keyTowardsTraversable'], [$object1, $object2]];
     }
 
     /**

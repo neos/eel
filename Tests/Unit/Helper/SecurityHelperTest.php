@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit;
 
 /*                                                                        *
@@ -10,7 +13,7 @@ use Neos\Eel\Helper\SecurityHelper;
 /**
  * Eel SecurityHelper test
  */
-class SecurityHelperTest extends \Neos\Flow\Tests\UnitTestCase
+final class SecurityHelperTest extends \Neos\Flow\Tests\UnitTestCase
 {
     /**
      * @test
@@ -18,12 +21,12 @@ class SecurityHelperTest extends \Neos\Flow\Tests\UnitTestCase
     public function csrfTokenIsReturnedFromTheSecurityContext()
     {
         $mockSecurityContext = $this->createMock(\Neos\Flow\Security\Context::class);
-        $mockSecurityContext->expects($this->any())->method('getCsrfProtectionToken')->willReturn('TheCsrfToken');
+        $mockSecurityContext->method('getCsrfProtectionToken')->willReturn('TheCsrfToken');
 
         $helper = new SecurityHelper();
         $this->inject($helper, 'securityContext', $mockSecurityContext);
 
-        self::assertEquals('TheCsrfToken', $helper->csrfToken());
+        self::assertSame('TheCsrfToken', $helper->csrfToken());
     }
 
     /**
@@ -145,7 +148,7 @@ class SecurityHelperTest extends \Neos\Flow\Tests\UnitTestCase
     public function hasAccessToPrivilegeTargetReturnsFalseIfSecurityContextCannotBeInitialized()
     {
         $mockSecurityContext = $this->createMock(\Neos\Flow\Security\Context::class);
-        $mockPrivilegeManager = $this->createMock(\Neos\Flow\Security\Authorization\PrivilegeManagerInterface::class);
+        $mockPrivilegeManager = $this->createStub(\Neos\Flow\Security\Authorization\PrivilegeManagerInterface::class);
 
         $mockSecurityContext->expects($this->once())->method('canBeInitialized')->willReturn((false));
 
@@ -162,7 +165,7 @@ class SecurityHelperTest extends \Neos\Flow\Tests\UnitTestCase
     public function getAccountReturnsNullIfSecurityContextCannotBeInitialized()
     {
         $mockSecurityContext = $this->createMock(\Neos\Flow\Security\Context::class);
-        $mockSecurityContext->expects($this->any())->method('canBeInitialized')->willReturn(false);
+        $mockSecurityContext->method('canBeInitialized')->willReturn(false);
 
         $helper = new SecurityHelper();
         $this->inject($helper, 'securityContext', $mockSecurityContext);
@@ -176,7 +179,7 @@ class SecurityHelperTest extends \Neos\Flow\Tests\UnitTestCase
     public function getAccountDelegatesToSecurityContextIfSecurityContextCanBeInitialized()
     {
         $mockSecurityContext = $this->createMock(\Neos\Flow\Security\Context::class);
-        $mockSecurityContext->expects($this->any())->method('canBeInitialized')->willReturn(true);
+        $mockSecurityContext->method('canBeInitialized')->willReturn(true);
         $mockSecurityContext->expects($this->atLeastOnce())->method('getAccount')->willReturn('this would be an account instance');
 
         $helper = new SecurityHelper();
@@ -200,7 +203,7 @@ class SecurityHelperTest extends \Neos\Flow\Tests\UnitTestCase
     public function hasRoleReturnsFalseIfSecurityContextCannotBeInitialized()
     {
         $mockSecurityContext = $this->createMock(\Neos\Flow\Security\Context::class);
-        $mockSecurityContext->expects($this->any())->method('canBeInitialized')->willReturn(false);
+        $mockSecurityContext->method('canBeInitialized')->willReturn(false);
 
         $helper = new SecurityHelper();
         $this->inject($helper, 'securityContext', $mockSecurityContext);
@@ -214,7 +217,7 @@ class SecurityHelperTest extends \Neos\Flow\Tests\UnitTestCase
     public function hasRoleDelegatesToSecurityContextIfSecurityContextCanBeInitialized()
     {
         $mockSecurityContext = $this->createMock(\Neos\Flow\Security\Context::class);
-        $mockSecurityContext->expects($this->any())->method('canBeInitialized')->willReturn(true);
+        $mockSecurityContext->method('canBeInitialized')->willReturn(true);
         $mockSecurityContext->expects($this->atLeastOnce())->method('hasRole')->with('Acme.Com:GrantsAccess')->willReturn(true);
 
         $helper = new SecurityHelper();

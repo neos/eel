@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit\FlowQuery;
 
 /*
@@ -19,7 +22,7 @@ require_once(__DIR__ . '/../../../Resources/Private/PHP/php-peg/tests/ParserTest
 /**
  * Fizzle parser test
  */
-class FizzleParserTest extends \Neos\Flow\Tests\UnitTestCase
+final class FizzleParserTest extends \Neos\Flow\Tests\UnitTestCase
 {
     /**
      * @test
@@ -154,9 +157,9 @@ class FizzleParserTest extends \Neos\Flow\Tests\UnitTestCase
         $parser = new ParserTestWrapper($this, FizzleParser::class);
 
         $actual = $parser->match('Filter', 'foo[foo=true]');
-        self::assertSame(true, $actual['AttributeFilters'][0]['Operand']);
+        self::assertTrue($actual['AttributeFilters'][0]['Operand']);
 
         $actual = $parser->match('Filter', 'foo[foo= false]');
-        self::assertSame(false, $actual['AttributeFilters'][0]['Operand']);
+        self::assertFalse($actual['AttributeFilters'][0]['Operand']);
     }
 }

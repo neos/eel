@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit;
 
 /*
@@ -17,19 +20,17 @@ use Neos\Flow\I18n\Locale;
 /**
  * Tests for DateHelper
  */
-class DateHelperTest extends \Neos\Flow\Tests\UnitTestCase
+final class DateHelperTest extends \Neos\Flow\Tests\UnitTestCase
 {
     /**
-     * @return array
+     * @return \Iterator<(int | string), mixed>
      */
-    public static function parseExamples(): array
+    public static function parseExamples(): \Iterator
     {
         $date = \DateTime::createFromFormat('Y-m-d', '2013-07-03');
         $dateTime = \DateTime::createFromFormat('Y-m-d H:i:s', '2013-07-03 12:34:56');
-        return [
-            'basic date' => ['2013-07-03', 'Y-m-d', $date],
-            'date with time' => ['2013-07-03 12:34:56', 'Y-m-d H:i:s', $dateTime]
-        ];
+        yield 'basic date' => ['2013-07-03', 'Y-m-d', $date];
+        yield 'date with time' => ['2013-07-03 12:34:56', 'Y-m-d H:i:s', $dateTime];
     }
 
     /**
@@ -45,17 +46,15 @@ class DateHelperTest extends \Neos\Flow\Tests\UnitTestCase
     }
 
     /**
-     * @return array
+     * @return \Iterator<(int | string), mixed>
      */
-    public static function formatExamples(): array
+    public static function formatExamples(): \Iterator
     {
         $dateTime = \DateTime::createFromFormat('Y-m-d H:i:s', '2013-07-03 12:34:56');
-        return [
-            'DateTime object' => [$dateTime, 'Y-m-d H:i:s', '2013-07-03 12:34:56'],
-            'timestamp as integer' => [1372856513, 'Y-m-d', '2013-07-03'],
-            'now' => ['now', 'Y-m-d', date('Y-m-d')],
-            'interval' => [new \DateInterval('P1D'), '%d days', '1 days']
-        ];
+        yield 'DateTime object' => [$dateTime, 'Y-m-d H:i:s', '2013-07-03 12:34:56'];
+        yield 'timestamp as integer' => [1372856513, 'Y-m-d', '2013-07-03'];
+        yield 'now' => ['now', 'Y-m-d', date('Y-m-d')];
+        yield 'interval' => [new \DateInterval('P1D'), '%d days', '1 days'];
     }
 
     /**
@@ -143,7 +142,7 @@ class DateHelperTest extends \Neos\Flow\Tests\UnitTestCase
         $this->inject($helper, 'datetimeFormatter', $formatMock);
 
         $result = $helper->formatCldrDate($date, $formatLength, $localeString);
-        $this->assertEquals($expectedString, $result);
+        $this->assertSame($expectedString, $result);
     }
 
     /**
@@ -165,7 +164,7 @@ class DateHelperTest extends \Neos\Flow\Tests\UnitTestCase
         $this->inject($helper, 'datetimeFormatter', $formatMock);
 
         $result = $helper->formatCldrTime($date, $formatLength, $localeString);
-        $this->assertEquals($expectedString, $result);
+        $this->assertSame($expectedString, $result);
     }
 
     /**
@@ -187,7 +186,7 @@ class DateHelperTest extends \Neos\Flow\Tests\UnitTestCase
         $this->inject($helper, 'datetimeFormatter', $formatMock);
 
         $result = $helper->formatCldrDateTime($date, $formatLength, $localeString);
-        $this->assertEquals($expectedString, $result);
+        $this->assertSame($expectedString, $result);
     }
 
     /**
@@ -226,17 +225,15 @@ class DateHelperTest extends \Neos\Flow\Tests\UnitTestCase
     }
 
     /**
-     * @return array
+     * @return \Iterator<(int | string), mixed>
      */
-    public static function calculationExamples(): array
+    public static function calculationExamples(): \Iterator
     {
         $dateTime = \DateTime::createFromFormat('Y-m-d H:i:s', '2013-07-03 12:34:56');
-        return [
-            'add DateTime with DateInterval' => ['add', $dateTime, new \DateInterval('P1D'), '2013-07-04 12:34:56'],
-            'add DateTime with string' => ['add', $dateTime, 'P1D', '2013-07-04 12:34:56'],
-            'subtract DateTime with DateInterval' => ['subtract', $dateTime, new \DateInterval('P1D'), '2013-07-02 12:34:56'],
-            'subtract DateTime with string' => ['subtract', $dateTime, 'P1D', '2013-07-02 12:34:56'],
-        ];
+        yield 'add DateTime with DateInterval' => ['add', $dateTime, new \DateInterval('P1D'), '2013-07-04 12:34:56'];
+        yield 'add DateTime with string' => ['add', $dateTime, 'P1D', '2013-07-04 12:34:56'];
+        yield 'subtract DateTime with DateInterval' => ['subtract', $dateTime, new \DateInterval('P1D'), '2013-07-02 12:34:56'];
+        yield 'subtract DateTime with string' => ['subtract', $dateTime, 'P1D', '2013-07-02 12:34:56'];
     }
 
     /**

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit\FlowQuery;
 
 /*
@@ -23,7 +26,7 @@ use Neos\Eel\FlowQuery\Operations;
 /**
  * FlowQuery test
  */
-class FlowQueryTest extends UnitTestCase
+final class FlowQueryTest extends UnitTestCase
 {
     /**
      * @var PersistenceManagerInterface
@@ -194,9 +197,9 @@ class FlowQueryTest extends UnitTestCase
     }
 
     /**
-     * @return array
+     * @return \Iterator<(int | string), mixed>
      */
-    public static function dataProviderForFilter(): array
+    public static function dataProviderForFilter(): \Iterator
     {
         $myObject = new \stdClass();
         $myObject->myProperty = 'asdf';
@@ -223,216 +226,190 @@ class FlowQueryTest extends UnitTestCase
         $myObject8 = new \stdClass();
         $myObject8->resource = new \stdClass();
         $myObject8->resource->fileExtension = "pdf";
-
-        return [
-            'Property existance test works' => [
-                'sourceObjects' => [$myObject, $myObject2],
-                'filter' => '[myProperty]',
-                'expectedResult' => [$myObject]
-            ],
-            'Multiple filters are combined with AND together' => [
-                'sourceObjects' => [$myObject, $myObject2, $myObject3],
-                'filter' => '[myProperty][myProperty2]',
-                'expectedResult' => [$myObject]
-            ],
-            'Multiple filters can be ORed together using comma' => [
-                'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4],
-                'filter' => '[myProperty2], [name]',
-                'expectedResult' => [$myObject, $myObject4]
-            ],
-            'Exact matches are supported' => [
-                'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4],
-                'filter' => '[myProperty=asdf]',
-                'expectedResult' => [$myObject]
-            ],
-            'Exact match of property path is supported' => [
-                'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4, $myObject8],
-                'filter' => '[resource.fileExtension=pdf]',
-                'expectedResult' => [$myObject8]
-            ],
-            'Boolean matches' => [
-                'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4, $myObject5, $myObject6],
-                'filter' => '[isHidden=true]',
-                'expectedResult' => [$myObject5]
-            ],
-            'Integer matches' => [
-                'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4, $myObject5, $myObject6],
-                'filter' => '[aNumber = 42]',
-                'expectedResult' => [$myObject6]
-            ],
-
-            'Instanceof test works (1)' => [
-                'sourceObjects' => [$myObject],
-                'filter' => '[instanceof foo]',
-                'expectedResult' => []
-            ],
-            'Instanceof test works (2)' => [
-                'sourceObjects' => [$myObject],
-                'filter' => '[  instanceof \stdClass  ]',
-                'expectedResult' => [$myObject]
-            ],
-            'Instanceof test works (with test for object)' => [
-                'sourceObjects' => [$myObject],
-                'filter' => '[  instanceof object  ]',
-                'expectedResult' => [$myObject]
-            ],
-            'Instanceof test works (with test for string)' => [
-                'sourceObjects' => ['myString'],
-                'filter' => '[  instanceof string  ]',
-                'expectedResult' => ['myString']
-            ],
-
-            'Instanceof test works (with test for integer)' => [
-                'sourceObjects' => [42, '42', 400, 'foo'],
-                'filter' => '[  instanceof integer  ]',
-                'expectedResult' => [42, 400]
-            ],
-
-            'Instanceof test works (with test for integer 2)' => [
-                'sourceObjects' => [42, '42', 400, 'foo'],
-                'filter' => '[  instanceof int  ]',
-                'expectedResult' => [42, 400]
-            ],
-
-            'Instanceof test works (with test for boolean)' => [
-                'sourceObjects' => [false, '', true],
-                'filter' => '[  instanceof boolean  ]',
-                'expectedResult' => [false, true]
-            ],
-
-            'Instanceof test works (with test for float)' => [
-                'sourceObjects' => [false, 42, 42.5, true],
-                'filter' => '[  instanceof float  ]',
-                'expectedResult' => [42.5]
-            ],
-
-            'Instanceof test works (with test for array)' => [
-                'sourceObjects' => [false, 42, 42.5, true, ['foo']],
-                'filter' => '[  instanceof array  ]',
-                'expectedResult' => [['foo']]
-            ],
-
-            'Instanceof test works on attributes' => [
-                'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4, $myObject5, $myObject6],
-                'filter' => '[ isHidden instanceof boolean ]',
-                'expectedResult' => [$myObject5]
-            ],
-
-            'Notinstanceof test works (1)' => [
-                'sourceObjects' => [$myObject],
-                'filter' => '[!instanceof foo]',
-                'expectedResult' => [$myObject]
-            ],
-            'Notinstanceof test works (2)' => [
-                'sourceObjects' => [$myObject],
-                'filter' => '[  !instanceof \stdClass  ]',
-                'expectedResult' => []
-            ],
-            'Notinstanceof test works (with test for object)' => [
-                'sourceObjects' => [$myObject],
-                'filter' => '[  !instanceof object  ]',
-                'expectedResult' => []
-            ],
-            'Notinstanceof test works (with test for string)' => [
-                'sourceObjects' => ['myString'],
-                'filter' => '[  !instanceof string  ]',
-                'expectedResult' => []
-            ],
-
-            'Notinstanceof test works (with test for integer)' => [
-                'sourceObjects' => [42, '42', 400, 'foo'],
-                'filter' => '[  !instanceof integer  ]',
-                'expectedResult' => ['42', 'foo']
-            ],
-
-            'Notinstanceof test works (with test for integer 2)' => [
-                'sourceObjects' => [42, '42', 400, 'foo'],
-                'filter' => '[  !instanceof int  ]',
-                'expectedResult' => ['42', 'foo']
-            ],
-
-            'Notinstanceof test works (with test for boolean)' => [
-                'sourceObjects' => [false, '', true],
-                'filter' => '[  !instanceof boolean  ]',
-                'expectedResult' => ['']
-            ],
-
-            'Notinstanceof test works (with test for float)' => [
-                'sourceObjects' => [false, 42, 42.5, true],
-                'filter' => '[  !instanceof float  ]',
-                'expectedResult' => [false, 42, true]
-            ],
-
-            'Notinstanceof test works (with test for array)' => [
-                'sourceObjects' => [false, 42, 42.5, true, ['foo']],
-                'filter' => '[  !instanceof array  ]',
-                'expectedResult' => [false, 42, 42.5, true]
-            ],
-
-            'Notinstanceof test works on attributes' => [
-                'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4, $myObject5, $myObject6],
-                'filter' => '[ isHidden !instanceof boolean ]',
-                'expectedResult' => [$myObject, $myObject2, $myObject3, $myObject4, $myObject6]
-            ],
-
-            'Begin query match' => [
-                'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4],
-                'filter' => '[ myProperty ^= as ]',
-                'expectedResult' => [$myObject]
-            ],
-
-            'End query match (1)' => [
-                'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4],
-                'filter' => '[ myProperty $= df ]',
-                'expectedResult' => [$myObject]
-            ],
-            'End query match (2)' => [
-                'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4],
-                'filter' => '[ myProperty $= a ]',
-                'expectedResult' => [$myObject3]
-            ],
-
-            'In-Between Query Match' => [
-                'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4],
-                'filter' => '[ myProperty *= sd ]',
-                'expectedResult' => [$myObject]
-            ],
-
-            'Identifier match' => [
-                'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4],
-                'filter' => '#object-identifier-A1-B2',
-                'expectedResult' => [$myObject2]
-            ],
-
-            'Not equals query match' => [
-                'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4],
-                'filter' => '[ myProperty != asdf ]',
-                'expectedResult' => [$myObject2, $myObject3, $myObject4]
-            ],
-
-            'Less than query match' => [
-                'sourceObjects' => [$myObject6, $myObject7],
-                'filter' => '[ aNumber < 50 ]',
-                'expectedResult' => [$myObject6]
-            ],
-
-            'Less than or equal to query match' => [
-                'sourceObjects' => [$myObject6, $myObject7],
-                'filter' => '[ aNumber <= 42 ]',
-                'expectedResult' => [$myObject6]
-            ],
-
-            'Greater than query match' => [
-                'sourceObjects' => [$myObject6, $myObject7],
-                'filter' => '[ aNumber > 50 ]',
-                'expectedResult' => [$myObject7]
-            ],
-
-            'Greater than or equal to query match' => [
-                'sourceObjects' => [$myObject6, $myObject7],
-                'filter' => '[ aNumber >= 42 ]',
-                'expectedResult' => [$myObject6, $myObject7]
-            ]
+        yield 'Property existance test works' => [
+            'sourceObjects' => [$myObject, $myObject2],
+            'filter' => '[myProperty]',
+            'expectedResult' => [$myObject]
+        ];
+        yield 'Multiple filters are combined with AND together' => [
+            'sourceObjects' => [$myObject, $myObject2, $myObject3],
+            'filter' => '[myProperty][myProperty2]',
+            'expectedResult' => [$myObject]
+        ];
+        yield 'Multiple filters can be ORed together using comma' => [
+            'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4],
+            'filter' => '[myProperty2], [name]',
+            'expectedResult' => [$myObject, $myObject4]
+        ];
+        yield 'Exact matches are supported' => [
+            'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4],
+            'filter' => '[myProperty=asdf]',
+            'expectedResult' => [$myObject]
+        ];
+        yield 'Exact match of property path is supported' => [
+            'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4, $myObject8],
+            'filter' => '[resource.fileExtension=pdf]',
+            'expectedResult' => [$myObject8]
+        ];
+        yield 'Boolean matches' => [
+            'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4, $myObject5, $myObject6],
+            'filter' => '[isHidden=true]',
+            'expectedResult' => [$myObject5]
+        ];
+        yield 'Integer matches' => [
+            'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4, $myObject5, $myObject6],
+            'filter' => '[aNumber = 42]',
+            'expectedResult' => [$myObject6]
+        ];
+        yield 'Instanceof test works (1)' => [
+            'sourceObjects' => [$myObject],
+            'filter' => '[instanceof foo]',
+            'expectedResult' => []
+        ];
+        yield 'Instanceof test works (2)' => [
+            'sourceObjects' => [$myObject],
+            'filter' => '[  instanceof \stdClass  ]',
+            'expectedResult' => [$myObject]
+        ];
+        yield 'Instanceof test works (with test for object)' => [
+            'sourceObjects' => [$myObject],
+            'filter' => '[  instanceof object  ]',
+            'expectedResult' => [$myObject]
+        ];
+        yield 'Instanceof test works (with test for string)' => [
+            'sourceObjects' => ['myString'],
+            'filter' => '[  instanceof string  ]',
+            'expectedResult' => ['myString']
+        ];
+        yield 'Instanceof test works (with test for integer)' => [
+            'sourceObjects' => [42, '42', 400, 'foo'],
+            'filter' => '[  instanceof integer  ]',
+            'expectedResult' => [42, 400]
+        ];
+        yield 'Instanceof test works (with test for integer 2)' => [
+            'sourceObjects' => [42, '42', 400, 'foo'],
+            'filter' => '[  instanceof int  ]',
+            'expectedResult' => [42, 400]
+        ];
+        yield 'Instanceof test works (with test for boolean)' => [
+            'sourceObjects' => [false, '', true],
+            'filter' => '[  instanceof boolean  ]',
+            'expectedResult' => [false, true]
+        ];
+        yield 'Instanceof test works (with test for float)' => [
+            'sourceObjects' => [false, 42, 42.5, true],
+            'filter' => '[  instanceof float  ]',
+            'expectedResult' => [42.5]
+        ];
+        yield 'Instanceof test works (with test for array)' => [
+            'sourceObjects' => [false, 42, 42.5, true, ['foo']],
+            'filter' => '[  instanceof array  ]',
+            'expectedResult' => [['foo']]
+        ];
+        yield 'Instanceof test works on attributes' => [
+            'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4, $myObject5, $myObject6],
+            'filter' => '[ isHidden instanceof boolean ]',
+            'expectedResult' => [$myObject5]
+        ];
+        yield 'Notinstanceof test works (1)' => [
+            'sourceObjects' => [$myObject],
+            'filter' => '[!instanceof foo]',
+            'expectedResult' => [$myObject]
+        ];
+        yield 'Notinstanceof test works (2)' => [
+            'sourceObjects' => [$myObject],
+            'filter' => '[  !instanceof \stdClass  ]',
+            'expectedResult' => []
+        ];
+        yield 'Notinstanceof test works (with test for object)' => [
+            'sourceObjects' => [$myObject],
+            'filter' => '[  !instanceof object  ]',
+            'expectedResult' => []
+        ];
+        yield 'Notinstanceof test works (with test for string)' => [
+            'sourceObjects' => ['myString'],
+            'filter' => '[  !instanceof string  ]',
+            'expectedResult' => []
+        ];
+        yield 'Notinstanceof test works (with test for integer)' => [
+            'sourceObjects' => [42, '42', 400, 'foo'],
+            'filter' => '[  !instanceof integer  ]',
+            'expectedResult' => ['42', 'foo']
+        ];
+        yield 'Notinstanceof test works (with test for integer 2)' => [
+            'sourceObjects' => [42, '42', 400, 'foo'],
+            'filter' => '[  !instanceof int  ]',
+            'expectedResult' => ['42', 'foo']
+        ];
+        yield 'Notinstanceof test works (with test for boolean)' => [
+            'sourceObjects' => [false, '', true],
+            'filter' => '[  !instanceof boolean  ]',
+            'expectedResult' => ['']
+        ];
+        yield 'Notinstanceof test works (with test for float)' => [
+            'sourceObjects' => [false, 42, 42.5, true],
+            'filter' => '[  !instanceof float  ]',
+            'expectedResult' => [false, 42, true]
+        ];
+        yield 'Notinstanceof test works (with test for array)' => [
+            'sourceObjects' => [false, 42, 42.5, true, ['foo']],
+            'filter' => '[  !instanceof array  ]',
+            'expectedResult' => [false, 42, 42.5, true]
+        ];
+        yield 'Notinstanceof test works on attributes' => [
+            'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4, $myObject5, $myObject6],
+            'filter' => '[ isHidden !instanceof boolean ]',
+            'expectedResult' => [$myObject, $myObject2, $myObject3, $myObject4, $myObject6]
+        ];
+        yield 'Begin query match' => [
+            'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4],
+            'filter' => '[ myProperty ^= as ]',
+            'expectedResult' => [$myObject]
+        ];
+        yield 'End query match (1)' => [
+            'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4],
+            'filter' => '[ myProperty $= df ]',
+            'expectedResult' => [$myObject]
+        ];
+        yield 'End query match (2)' => [
+            'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4],
+            'filter' => '[ myProperty $= a ]',
+            'expectedResult' => [$myObject3]
+        ];
+        yield 'In-Between Query Match' => [
+            'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4],
+            'filter' => '[ myProperty *= sd ]',
+            'expectedResult' => [$myObject]
+        ];
+        yield 'Identifier match' => [
+            'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4],
+            'filter' => '#object-identifier-A1-B2',
+            'expectedResult' => [$myObject2]
+        ];
+        yield 'Not equals query match' => [
+            'sourceObjects' => [$myObject, $myObject2, $myObject3, $myObject4],
+            'filter' => '[ myProperty != asdf ]',
+            'expectedResult' => [$myObject2, $myObject3, $myObject4]
+        ];
+        yield 'Less than query match' => [
+            'sourceObjects' => [$myObject6, $myObject7],
+            'filter' => '[ aNumber < 50 ]',
+            'expectedResult' => [$myObject6]
+        ];
+        yield 'Less than or equal to query match' => [
+            'sourceObjects' => [$myObject6, $myObject7],
+            'filter' => '[ aNumber <= 42 ]',
+            'expectedResult' => [$myObject6]
+        ];
+        yield 'Greater than query match' => [
+            'sourceObjects' => [$myObject6, $myObject7],
+            'filter' => '[ aNumber > 50 ]',
+            'expectedResult' => [$myObject7]
+        ];
+        yield 'Greater than or equal to query match' => [
+            'sourceObjects' => [$myObject6, $myObject7],
+            'filter' => '[ aNumber >= 42 ]',
+            'expectedResult' => [$myObject6, $myObject7]
         ];
     }
 
@@ -466,8 +443,8 @@ class FlowQueryTest extends UnitTestCase
     {
         $query = $this->createFlowQuery($sourceObjects);
         self::assertSame(count($expectedResult), $query->filter($filter)->count());
-        self::assertSame(count($sourceObjects), $query->count());
-        self::assertSame(count($sourceObjects), count($query));
+        self::assertCount(count($sourceObjects), $query);
+        self::assertCount(count($sourceObjects), $query);
     }
 
     /**
@@ -500,9 +477,9 @@ class FlowQueryTest extends UnitTestCase
     }
 
     /**
-     * @return array
+     * @return \Iterator<(int | string), mixed>
      */
-    public static function dataProviderForChildrenAndFilterAndProperty(): array
+    public static function dataProviderForChildrenAndFilterAndProperty(): \Iterator
     {
         $person1 = new \stdClass();
         $person1->name = 'Kasper Skaarhoj';
@@ -530,54 +507,48 @@ class FlowQueryTest extends UnitTestCase
 
         $person4 = new \stdClass();
         $person4->name = 'Somebody without address';
-
-        return [
-            'children() on empty array always returns empty flowquery object' => [
-                'sourceObjects' => [],
-                'expressions' => [
-                    '$query->children("foo[bar]")',
-                    '$query->children("foo")',
-                    '$query->children("[instanceof Something]")',
-                    '$query->children()'
-                ],
-                'expectedResult' => []
+        yield 'children() on empty array always returns empty flowquery object' => [
+            'sourceObjects' => [],
+            'expressions' => [
+                '$query->children("foo[bar]")',
+                '$query->children("foo")',
+                '$query->children("[instanceof Something]")',
+                '$query->children()'
             ],
-            'children() with property name filter returns all corresponding child objects' => [
-                'sourceObjects' => [$person1, $person2, $person3, $person4],
-                'expressions' => [
-                    '$query->children("address")',
-                    '$query->children()->filter("address")',
-                ],
-                'expectedResult' => [$address1_1, $address2_1, $address3_1]
+            'expectedResult' => []
+        ];
+        yield 'children() with property name filter returns all corresponding child objects' => [
+            'sourceObjects' => [$person1, $person2, $person3, $person4],
+            'expressions' => [
+                '$query->children("address")',
+                '$query->children()->filter("address")',
             ],
-
-            'children() with property name and attribute filter returns all corresponding child objects' => [
-                'sourceObjects' => [$person1, $person2, $person3, $person4],
-                'expressions' => [
-                    '$query->children("address[country=Germany]")',
-                    '$query->children("address")->filter("[country=Germany]")',
-                    '$query->children()->filter("address[country=Germany]")',
-                ],
-                'expectedResult' => [$address2_1, $address3_1]
+            'expectedResult' => [$address1_1, $address2_1, $address3_1]
+        ];
+        yield 'children() with property name and attribute filter returns all corresponding child objects' => [
+            'sourceObjects' => [$person1, $person2, $person3, $person4],
+            'expressions' => [
+                '$query->children("address[country=Germany]")',
+                '$query->children("address")->filter("[country=Germany]")',
+                '$query->children()->filter("address[country=Germany]")',
             ],
-            'property() with property name returns object accessor on first object' => [
-                'sourceObjects' => [$person1, $person2, $person3, $person4],
-                'expressions' => [
-                    '$query->property("address")'
-                ],
-                'expectedResult' => $address1_1,
-                'isFinal' => true
+            'expectedResult' => [$address2_1, $address3_1]
+        ];
+        yield 'property() with property name returns object accessor on first object' => [
+            'sourceObjects' => [$person1, $person2, $person3, $person4],
+            'expressions' => [
+                '$query->property("address")'
             ],
-            'property() with property name works with property paths' => [
-                'sourceObjects' => [$person1, $person2, $person3, $person4],
-                'expressions' => [
-                    '$query->property("address.street")'
-                ],
-                'expectedResult' => 'SomeCopenhagenStreet',
-                'isFinal' => true
-            ]
-            // TODO: children without filter removes elements which do not have target property set
-            // TODO: duplicate objects are removed
+            'expectedResult' => $address1_1,
+            'isFinal' => true
+        ];
+        yield 'property() with property name works with property paths' => [
+            'sourceObjects' => [$person1, $person2, $person3, $person4],
+            'expressions' => [
+                '$query->property("address.street")'
+            ],
+            'expectedResult' => 'SomeCopenhagenStreet',
+            'isFinal' => true
         ];
     }
 
@@ -599,26 +570,25 @@ class FlowQueryTest extends UnitTestCase
     }
 
     /**
-     * @return array
+     * @return \Iterator<(int | string), mixed>
      */
-    public static function dataProviderForErrorQueries(): array
+    public static function dataProviderForErrorQueries(): \Iterator
     {
-        return [
-            ['$query->children()'],
-            ['$query->children("")'],
-            ['$query->children("[foo]")'],
-            ['$query->filter("foo")'],
-            ['$query->children()->filter()'],
-            ['$query->children()->filter("")'],
-            ['$query->children("")->filter()'],
-            ['$query->children("")->filter("")'],
-            ['$query->children()->filter("[foo]")'],
-            ['$query->children("foo")->filter("foo")'],
-            ['$query->children("[foo]")->filter("foo")'], // TODO should we allow this, implicitely turning it around?
-            ['$query->children("[foo]")->filter("[foo]")'],
-            ['$query->children("foo")->filter("foo[foo]")'],
-            ['$query->children("foo[foo]")->filter("foo[foo]")'],
-        ];
+        yield ['$query->children()'];
+        yield ['$query->children("")'];
+        yield ['$query->children("[foo]")'];
+        yield ['$query->filter("foo")'];
+        yield ['$query->children()->filter()'];
+        yield ['$query->children()->filter("")'];
+        yield ['$query->children("")->filter()'];
+        yield ['$query->children("")->filter("")'];
+        yield ['$query->children()->filter("[foo]")'];
+        yield ['$query->children("foo")->filter("foo")'];
+        yield ['$query->children("[foo]")->filter("foo")'];
+        // TODO should we allow this, implicitely turning it around?
+        yield ['$query->children("[foo]")->filter("[foo]")'];
+        yield ['$query->children("foo")->filter("foo[foo]")'];
+        yield ['$query->children("foo[foo]")->filter("foo[foo]")'];
     }
 
     /**
@@ -648,7 +618,7 @@ class FlowQueryTest extends UnitTestCase
 
         // Set up mock persistence manager to return dummy object identifiers
         $this->mockPersistenceManager = $this->createMock(PersistenceManagerInterface::class);
-        $this->mockPersistenceManager->expects($this->any())->method('getIdentifierByObject')->willReturnCallBack(function ($object) {
+        $this->mockPersistenceManager->method('getIdentifierByObject')->willReturnCallBack(function ($object) {
             if (isset($object->__identity)) {
                 return $object->__identity;
             }
@@ -656,7 +626,7 @@ class FlowQueryTest extends UnitTestCase
 
         $mockPersistenceManager = $this->mockPersistenceManager;
         $objectManager = $this->createMock(ObjectManagerInterface::class);
-        $objectManager->expects($this->any())->method('get')->willReturnCallBack(function ($className) use ($mockPersistenceManager) {
+        $objectManager->method('get')->willReturnCallBack(function ($className) use ($mockPersistenceManager) {
             $instance = new $className;
             // Special case to inject the mock persistence manager into the filter operation
             if ($className === Operations\Object\FilterOperation::class) {

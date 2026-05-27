@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit;
 
 /*
@@ -25,113 +28,101 @@ use Neos\Flow\Tests\UnitTestCase;
  */
 abstract class AbstractEvaluatorTest extends UnitTestCase
 {
-    public static function integerLiterals(): array
+    public static function integerLiterals(): \Iterator
     {
         $c = new Context();
-        return [
-            // So simple, so true
-            ['1', $c, 1],
-            // It all starts with zero
-            ['0', $c, 0],
-            // Very large number!
-            ['2147483600', $c, 2147483600],
-            // Don't be so negative
-            ['-100', $c, -100],
-        ];
+        // So simple, so true
+        yield ['1', $c, 1];
+        // It all starts with zero
+        yield ['0', $c, 0];
+        // Very large number!
+        yield ['2147483600', $c, 2147483600];
+        // Don't be so negative
+        yield ['-100', $c, -100];
     }
 
-    public static function floatLiterals(): array
+    public static function floatLiterals(): \Iterator
     {
         $c = new Context();
-        return [
-            ['1.0', $c, 1.0],
-            ['3.141', $c, 3.141],
-            ['-17.4', $c, -17.4],
-        ];
+        yield ['1.0', $c, 1.0];
+        yield ['3.141', $c, 3.141];
+        yield ['-17.4', $c, -17.4];
     }
 
-    public static function stringLiterals(): array
+    public static function stringLiterals(): \Iterator
     {
         $c = new Context();
-        return [
-            // An empty string
-            ['""', $c, ''],
-            // Very basic
-            ['"Hello world"', $c, 'Hello world'],
-            // Escape not possible
-            ['"Foo \"Bar\""', $c, 'Foo "Bar"'],
-            // Single quotes ftw
-            ['\'\'', $c, ''],
-            // Single quotes ftw
-            ['\'Foo\'', $c, 'Foo'],
-            // Mixed quote salad
-            ['\'"Foo" Bar\'', $c, '"Foo" Bar'],
-        ];
+        // An empty string
+        yield ['""', $c, ''];
+        // Very basic
+        yield ['"Hello world"', $c, 'Hello world'];
+        // Escape not possible
+        yield ['"Foo \"Bar\""', $c, 'Foo "Bar"'];
+        // Single quotes ftw
+        yield ['\'\'', $c, ''];
+        // Single quotes ftw
+        yield ['\'Foo\'', $c, 'Foo'];
+        // Mixed quote salad
+        yield ['\'"Foo" Bar\'', $c, '"Foo" Bar'];
     }
 
-    public static function stringConcatenations(): array
+    public static function stringConcatenations(): \Iterator
     {
         $c = new Context(['foo' => 'bar']);
-        return [
-            // Just concatenate two strings
-            ['"a" + "b"', $c, 'ab'],
-            // Concatenate a string and an integer
-            ['2 + "b"', $c, '2b'],
-            // Concatenate a wrapped element and a string
-            ['foo + "b"', $c, 'barb'],
-            // Concatenate three elements
-            ['foo + " x " + foo', $c, 'bar x bar']
-        ];
+        // Just concatenate two strings
+        yield ['"a" + "b"', $c, 'ab'];
+        // Concatenate a string and an integer
+        yield ['2 + "b"', $c, '2b'];
+        // Concatenate a wrapped element and a string
+        yield ['foo + "b"', $c, 'barb'];
+        // Concatenate three elements
+        yield ['foo + " x " + foo', $c, 'bar x bar'];
     }
 
-    public static function notExpressions(): array
+    public static function notExpressions(): \Iterator
     {
         $c = new Context();
-        return [
-            // Not one is false
-            ['!1', $c, false],
-            // Not an empty string is true
-            ['!""', $c, true],
-            // Some whitespace allowed
-            ['!0', $c, true],
-            // A not can be a word
-            ['not 0', $c, true],
-        ];
+        // Not one is false
+        yield ['!1', $c, false];
+        // Not an empty string is true
+        yield ['!""', $c, true];
+        // Some whitespace allowed
+        yield ['!0', $c, true];
+        // A not can be a word
+        yield ['not 0', $c, true];
     }
 
-    public static function comparisonExpressions(): array
+    public static function comparisonExpressions(): \Iterator
     {
         $c = new Context([
             'answer' => 42
         ]);
-        return [
-            ['1==0', $c, false],
-            ['1==1', $c, true],
-            ['0 == 0', $c, true],
-            // It's strict
-            ['0==""', $c, false],
-            // Quoting doesn't matter
-            ['"Foo"==\'Foo\'', $c, true],
-            // Whitespace okay!
-            ['1> 0', $c, true],
-            // Whitespace okay!
-            ['1 <0', $c, false],
-            // Parenthesed comparisons
-            ['(0 > 1) < (0 < 1)', $c, true],
-            // Comparisons and variables
-            ['answer > 1', $c, true],
-            ['answer==  42', $c, true],
-            // Less than equal and greater than equal
-            ['1<= 0', $c, false],
-            ['1 >=1', $c, true],
-            // Inequality
-            ['1!=1', $c, false],
-            ['1!=true', $c, true],
-            ['answer != 7', $c, true],
-        ];
+        yield ['1==0', $c, false];
+        yield ['1==1', $c, true];
+        yield ['0 == 0', $c, true];
+        // It's strict
+        yield ['0==""', $c, false];
+        // Quoting doesn't matter
+        yield ['"Foo"==\'Foo\'', $c, true];
+        // Whitespace okay!
+        yield ['1> 0', $c, true];
+        // Whitespace okay!
+        yield ['1 <0', $c, false];
+        // Parenthesed comparisons
+        yield ['(0 > 1) < (0 < 1)', $c, true];
+        // Comparisons and variables
+        yield ['answer > 1', $c, true];
+        yield ['answer==  42', $c, true];
+        // Less than equal and greater than equal
+        yield ['1<= 0', $c, false];
+        yield ['1 >=1', $c, true];
+        // Inequality
+        yield ['1!=1', $c, false];
+        yield ['1!=true', $c, true];
+        yield ['answer != 7', $c, true];
     }
 
-    public static function calculationExpressions(): array
+    public static function calculationExpressions(): \Iterator
     {
         $c = new Context([
             'answer' => 42,
@@ -141,70 +132,64 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
                 ]
             ]
         ]);
-        return [
-            // Very basic
-            ['1 + 1', $c, 2],
-            ['1 - 1', $c, 0],
-            ['2*2', $c, 4],
-            // Multiple calc with precedence
-            ['1 + 2 * 3 + 4 / 2 + 2', $c, 11],
-            ['(1 + 2) * 3 + 4 / (2 + 2)', $c, 10],
-            // Calculation with variables
-            ['2* answer', $c, 84],
-            // Calculation with nested context
-            ['deeply.nested.value - 1', $c, 1],
-        ];
+        // Very basic
+        yield ['1 + 1', $c, 2];
+        yield ['1 - 1', $c, 0];
+        yield ['2*2', $c, 4];
+        // Multiple calc with precedence
+        yield ['1 + 2 * 3 + 4 / 2 + 2', $c, 11];
+        yield ['(1 + 2) * 3 + 4 / (2 + 2)', $c, 10];
+        // Calculation with variables
+        yield ['2* answer', $c, 84];
+        // Calculation with nested context
+        yield ['deeply.nested.value - 1', $c, 1];
     }
 
-    public static function combinedExpressions(): array
+    public static function combinedExpressions(): \Iterator
     {
         $c = new Context();
-        return [
-            // Calculations before comparisons
-            ['1 + 2 > 3', $c, false],
-            // Calculations before comparisons
-            ['2 * 1 == 3 - 1', $c, true],
-            // Comparison on left side work too
-            ['1 < 1 + 1', $c, true],
-        ];
+        // Calculations before comparisons
+        yield ['1 + 2 > 3', $c, false];
+        // Calculations before comparisons
+        yield ['2 * 1 == 3 - 1', $c, true];
+        // Comparison on left side work too
+        yield ['1 < 1 + 1', $c, true];
     }
 
-    public static function booleanExpressions(): array
+    public static function booleanExpressions(): \Iterator
     {
         $c = new Context([
             'trueVar' => true,
             'falseVar' => false
         ]);
-        return [
-            // Boolean literals work
-            ['false', $c, false],
-            ['true', $c, true],
-            // Conjunction before Disjunction
-            ['true && true || false && false', $c, true],
-            ['true && false || false && true', $c, false],
-            ['1 < 2 && 2 > 1', $c, true],
-            ['!1 < 2', $c, true],
-            ['!(1 < 2)', $c, false],
-            // Named and symbolic operators can be mixed
-            ['true && true and false or false', $c, false],
-            // Using variables and literals
-            ['trueVar || false', $c, true],
-            ['trueVar && true', $c, true],
-            ['falseVar || false', $c, false],
-            ['falseVar && true', $c, false],
-            // JavaScript semantics of boolean operators
-            ['null || "foo"', $c, 'foo'],
-            ['0 || "foo"', $c, 'foo'],
-            ['0 || ""', $c, ''],
-            ['"bar" || "foo"', $c, 'bar'],
-            ['"foo" && "bar"', $c, 'bar'],
-            ['"" && false', $c, ''],
-            ['"Bar" && 0', $c, 0],
-            ['0 && ""', $c, 0],
-        ];
+        // Boolean literals work
+        yield ['false', $c, false];
+        yield ['true', $c, true];
+        // Conjunction before Disjunction
+        yield ['true && true || false && false', $c, true];
+        yield ['true && false || false && true', $c, false];
+        yield ['1 < 2 && 2 > 1', $c, true];
+        yield ['!1 < 2', $c, true];
+        yield ['!(1 < 2)', $c, false];
+        // Named and symbolic operators can be mixed
+        yield ['true && true and false or false', $c, false];
+        // Using variables and literals
+        yield ['trueVar || false', $c, true];
+        yield ['trueVar && true', $c, true];
+        yield ['falseVar || false', $c, false];
+        yield ['falseVar && true', $c, false];
+        // JavaScript semantics of boolean operators
+        yield ['null || "foo"', $c, 'foo'];
+        yield ['0 || "foo"', $c, 'foo'];
+        yield ['0 || ""', $c, ''];
+        yield ['"bar" || "foo"', $c, 'bar'];
+        yield ['"foo" && "bar"', $c, 'bar'];
+        yield ['"" && false', $c, ''];
+        yield ['"Bar" && 0', $c, 0];
+        yield ['0 && ""', $c, 0];
     }
 
-    public static function objectPathOnArrayExpressions(): array
+    public static function objectPathOnArrayExpressions(): \Iterator
     {
         // Wrap a value inside a context
         $c = new Context([
@@ -220,21 +205,19 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
             ],
             'numeric' => ['a', 'b', 'c']
         ]);
-        return [
-            // Undefined variables are NULL with the default context
-            ['unknwn', $c, null],
-            // Simple variable statement
-            ['foo', $c, 42],
-            // Simple object path
-            ['bar.baz', $c, 'Hello'],
-            // Dynamic array like access of properties by another object path (awesome!!!)
-            ['bar.a1[another.path]', $c, 'Nested'],
-            // Offset access with invalid path is NULL
-            ['bar.a1[unknwn.path]', $c, null],
-            // Offset access with integers
-            ['numeric[1]', $c, 'b'],
-            ['numeric[0]', $c, 'a'],
-        ];
+        // Undefined variables are NULL with the default context
+        yield ['unknwn', $c, null];
+        // Simple variable statement
+        yield ['foo', $c, 42];
+        // Simple object path
+        yield ['bar.baz', $c, 'Hello'];
+        // Dynamic array like access of properties by another object path (awesome!!!)
+        yield ['bar.a1[another.path]', $c, 'Nested'];
+        // Offset access with invalid path is NULL
+        yield ['bar.a1[unknwn.path]', $c, null];
+        // Offset access with integers
+        yield ['numeric[1]', $c, 'b'];
+        yield ['numeric[0]', $c, 'a'];
     }
 
     public static function objectPathOnObjectExpressions(): array
@@ -276,7 +259,10 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
                 }
             ],
             'foo' => function () {
-                return ['a' => 'a1', 'b' => 'b1'];
+                return [
+                    'a' => 'a1',
+                    'b' => 'b1',
+                ];
             },
 
             'arr' => ['a' => 1, 'b' => 2, 'c' => 3],
@@ -308,7 +294,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
         ];
     }
 
-    public static function arrayLiteralExpressions(): array
+    public static function arrayLiteralExpressions(): \Iterator
     {
         $c = new Context([
             'test' => function ($string) {
@@ -319,50 +305,46 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
             ],
             'bar' => 'baz'
         ]);
-        return [
-            // Empty array
-            ['[]', $c, []],
-            // Simple array with integer literals
-            ['[1, 2, 3]', $c, [1, 2, 3]],
-            // Nested array literals
-            ['[[1, 2], 3, 4]', $c, [[1, 2], 3, 4]],
-            // Nested expressions in array literal
-            ['[[foo[bar], 2], test("a"), 4]', $c, [['Hello', 2], 'test|a|', 4]],
-            // Simple array, padded with whitespace
-            ['[ 1, 2, 3 ]', $c, [1, 2, 3]],
-            // Simple multiline array
-            ['[
+        // Empty array
+        yield ['[]', $c, []];
+        // Simple array with integer literals
+        yield ['[1, 2, 3]', $c, [1, 2, 3]];
+        // Nested array literals
+        yield ['[[1, 2], 3, 4]', $c, [[1, 2], 3, 4]];
+        // Nested expressions in array literal
+        yield ['[[foo[bar], 2], test("a"), 4]', $c, [['Hello', 2], 'test|a|', 4]];
+        // Simple array, padded with whitespace
+        yield ['[ 1, 2, 3 ]', $c, [1, 2, 3]];
+        // Simple multiline array
+        yield ['[
                 1,
                 2,
                 3
-            ]', $c, [1, 2, 3]],
-        ];
+            ]', $c, [1, 2, 3]];
     }
 
-    public static function objectLiteralExpressions(): array
+    public static function objectLiteralExpressions(): \Iterator
     {
         $c = new Context([
         ]);
-        return [
-            // Empty object
-            ['{}', $c, []],
-            // Simple object literal with unquoted key
-            ['{foo: "bar", bar: "baz"}', $c, ['foo' => 'bar', 'bar' => 'baz']],
-            // Simple object literal with differently quoted keys
-            ['{"foo": "bar", \'bar\': "baz"}', $c, ['foo' => 'bar', 'bar' => 'baz']],
-            // Nested object literals with unquoted key
-            ['{foo: "bar", bar: {baz: "quux"}}', $c, ['foo' => 'bar', 'bar' => ['baz' => 'quux']]],
-            // Simple object literal, padded with whitespace
-            ['{ foo: "bar", bar: "baz" }', $c, ['foo' => 'bar', 'bar' => 'baz']],
-            // Simple multiline object literal
-            ['{
+        // Empty object
+        yield ['{}', $c, []];
+        // Simple object literal with unquoted key
+        yield ['{foo: "bar", bar: "baz"}', $c, ['foo' => 'bar', 'bar' => 'baz']];
+        // Simple object literal with differently quoted keys
+        yield ['{"foo": "bar", \'bar\': "baz"}', $c, ['foo' => 'bar', 'bar' => 'baz']];
+        // Nested object literals with unquoted key
+        yield ['{foo: "bar", bar: {baz: "quux"}}', $c, ['foo' => 'bar', 'bar' => ['baz' => 'quux']]];
+        // Simple object literal, padded with whitespace
+        yield ['{ foo: "bar", bar: "baz" }', $c, ['foo' => 'bar', 'bar' => 'baz']];
+        // Simple multiline object literal
+        yield ['{
                 foo: "bar",
                 bar: "baz"
-            }', $c, ['foo' => 'bar', 'bar' => 'baz']],
-        ];
+            }', $c, ['foo' => 'bar', 'bar' => 'baz']];
     }
 
-    public static function conditionalOperatorExpressions(): array
+    public static function conditionalOperatorExpressions(): \Iterator
     {
         $c = new Context([
             'answer' => 42,
@@ -370,17 +352,15 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
             'a' => 5,
             'b' => 10
         ]);
-        return [
-            // Simple ternary operator expression (condition)
-            ['true ? 1 : 2', $c, 1],
-            // Ternary operator using variables
-            ['trueVar ? answer : false', $c, 42],
-            ['!trueVar ? false : answer', $c, 42],
-            ['a < b ? 1 : 2', $c, 1],
-            // Ternary operator with nested expressions
-            ['a < b ? 1 + a : 2 + b', $c, 6],
-            ['a > b ? 1 + a : 2 + b', $c, 12],
-        ];
+        // Simple ternary operator expression (condition)
+        yield ['true ? 1 : 2', $c, 1];
+        // Ternary operator using variables
+        yield ['trueVar ? answer : false', $c, 42];
+        yield ['!trueVar ? false : answer', $c, 42];
+        yield ['a < b ? 1 : 2', $c, 1];
+        // Ternary operator with nested expressions
+        yield ['a < b ? 1 + a : 2 + b', $c, 6];
+        yield ['a > b ? 1 + a : 2 + b', $c, 12];
     }
 
     /**
@@ -548,19 +528,17 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
         $this->assertEvaluated($result, $expression, $context);
     }
 
-    public static function invalidExpressions(): array
+    public static function invalidExpressions(): \Iterator
     {
-        return [
-            // Completely insane expression
-            ['NULL ---invalid---'],
-            // Wrong parens
-            ['a * (5 + a))'],
-            ['(a * 5 + b'],
-            // Incomplete object path
-            ['a.b. < 1'],
-            // Invalid quoted strings
-            ['"a "super\" \'thing\'"'],
-        ];
+        // Completely insane expression
+        yield ['NULL ---invalid---'];
+        // Wrong parens
+        yield ['a * (5 + a))'];
+        yield ['(a * 5 + b'];
+        // Incomplete object path
+        yield ['a.b. < 1'];
+        // Invalid quoted strings
+        yield ['"a "super\" \'thing\'"'];
     }
 
     /**

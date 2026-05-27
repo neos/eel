@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Functional\FlowQuery;
 
 use Neos\Eel\FlowQuery\OperationResolver;
@@ -8,7 +11,7 @@ use Neos\Flow\Tests\FunctionalTestCase;
 /**
  * Test cases for operation resolver
  */
-class OperationResolverTest extends FunctionalTestCase
+final class OperationResolverTest extends FunctionalTestCase
 {
     /**
      * @var OperationResolverInterface

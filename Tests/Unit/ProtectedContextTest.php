@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit;
 
 /*
@@ -21,7 +24,7 @@ use Neos\Flow\Tests\UnitTestCase;
 /**
  * Untrusted context test
  */
-class ProtectedContextTest extends UnitTestCase
+final class ProtectedContextTest extends UnitTestCase
 {
     /**
      * @test
@@ -221,7 +224,7 @@ class ProtectedContextTest extends UnitTestCase
     protected function createEvaluator()
     {
         $stringFrontendMock = $this->getMockBuilder(StringFrontend::class)->onlyMethods(['get', 'set'])->disableOriginalConstructor()->getMock();
-        $stringFrontendMock->expects($this->any())->method('get')->willReturn(false);
+        $stringFrontendMock->method('get')->willReturn(false);
 
         $evaluator = new CompilingEvaluator();
         $evaluator->injectExpressionCache($stringFrontendMock);

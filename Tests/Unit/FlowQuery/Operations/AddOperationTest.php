@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit\FlowQuery\Operations;
 
 /*
@@ -17,7 +20,7 @@ use Neos\Eel\FlowQuery\Operations\AddOperation;
 /**
  * AddOperation test
  */
-class AddOperationTest extends \Neos\Flow\Tests\UnitTestCase
+final class AddOperationTest extends \Neos\Flow\Tests\UnitTestCase
 {
     /**
      * This corresponds to ${q(node).add(q(someOtherNode))}

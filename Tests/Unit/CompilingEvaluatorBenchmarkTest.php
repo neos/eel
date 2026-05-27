@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit;
 
 /*
@@ -18,7 +21,7 @@ use Neos\Eel\CompilingEvaluator;
  * A benchmark to test the compiling evaluator
  */
 #[\PHPUnit\Framework\Attributes\Group('benchmark')]
-class CompilingEvaluatorBenchmarkTest extends \Neos\Flow\Tests\UnitTestCase
+final class CompilingEvaluatorBenchmarkTest extends \Neos\Flow\Tests\UnitTestCase
 {
     /**
      * @test
