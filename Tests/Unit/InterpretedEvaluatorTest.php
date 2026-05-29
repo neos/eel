@@ -20,7 +20,7 @@ use Neos\Eel\InterpretedEvaluator;
 /**
  * Interpreted evaluator test
  */
-final class InterpretedEvaluatorTest extends AbstractEvaluatorTest
+final class InterpretedEvaluatorTest extends AbstractEvaluatorTestcase
 {
     /**
      * @return Context

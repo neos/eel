@@ -29,7 +29,7 @@ use Neos\Flow\Tests\UnitTestCase;
  *
  * Is used to test both the compiling and interpreting Eel evaluators.
  */
-abstract class AbstractEvaluatorTest extends UnitTestCase
+abstract class AbstractEvaluatorTestcase extends UnitTestCase
 {
     public static function integerLiterals(): \Iterator
     {

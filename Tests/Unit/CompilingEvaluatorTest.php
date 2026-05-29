@@ -24,7 +24,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 /**
  * Compiling evaluator test
  */
-final class CompilingEvaluatorTest extends AbstractEvaluatorTest
+final class CompilingEvaluatorTest extends AbstractEvaluatorTestcase
 {
     public static function arrowFunctionExpressions(): \Iterator
     {
