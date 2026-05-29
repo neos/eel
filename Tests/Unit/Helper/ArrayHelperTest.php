@@ -13,14 +13,16 @@ namespace Neos\Eel\Tests\Unit;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use Neos\Flow\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Neos\Eel\Helper\ArrayHelper;
 use Neos\Eel\Tests\Unit\Fixtures\TestArrayIterator;
 
 /**
  * Tests for ArrayHelper
  */
-final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
+final class ArrayHelperTest extends UnitTestCase
 {
     public static function concatExamples(): \Iterator
     {
@@ -42,10 +44,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider concatExamples
-     */
+    #[DataProvider('concatExamples')]
+    #[Test]
     public function concatWorks($arguments, $expected): void
     {
         $helper = new ArrayHelper();
@@ -61,10 +61,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'traversable' => [TestArrayIterator::fromArray(['a', 'b', 'c']), ', ', 'a, b, c'];
     }
 
-    /**
-     * @test
-     * @dataProvider joinExamples
-     */
+    #[DataProvider('joinExamples')]
+    #[Test]
     public function joinWorks($array, $separator, $expected): void
     {
         $helper = new ArrayHelper();
@@ -87,10 +85,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'traversable' => [TestArrayIterator::fromArray(['a', 'b', 'c']), 2, null, ['c']];
     }
 
-    /**
-     * @test
-     * @dataProvider sliceExamples
-     */
+    #[DataProvider('sliceExamples')]
+    #[Test]
     public function sliceWorks($array, $begin, $end, $expected): void
     {
         $helper = new ArrayHelper();
@@ -110,10 +106,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'traversable' => [TestArrayIterator::fromArray(['a' => 1, 'b' => 2, 'c' => 3]), ['c' => 3, 'b' => 2, 'a' => 1]];
     }
 
-    /**
-     * @test
-     * @dataProvider reverseExamples
-     */
+    #[DataProvider('reverseExamples')]
+    #[Test]
     public function reverseWorks($array, $expected): void
     {
         $helper = new ArrayHelper();
@@ -130,10 +124,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'traversable' => [TestArrayIterator::fromArray(['foo' => 'bar', 'bar' => 'baz']), ['foo', 'bar']];
     }
 
-    /**
-     * @test
-     * @dataProvider keysExamples
-     */
+    #[DataProvider('keysExamples')]
+    #[Test]
     public function keysWorks($array, $expected): void
     {
         $helper = new ArrayHelper();
@@ -151,11 +143,11 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
     }
 
     /**
-     * @test
-     * @dataProvider valuesExamples
      * @param array $array
      * @param array $expected
      */
+    #[DataProvider('valuesExamples')]
+    #[Test]
     public function valuesWorks($array, array $expected): void
     {
         $helper = new ArrayHelper();
@@ -171,10 +163,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'traversable' => [TestArrayIterator::fromArray(['a', 'b', 'c']), 3];
     }
 
-    /**
-     * @test
-     * @dataProvider lengthExamples
-     */
+    #[DataProvider('lengthExamples')]
+    #[Test]
     public function lengthWorks($array, $expected): void
     {
         $helper = new ArrayHelper();
@@ -193,10 +183,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'traversable' => [TestArrayIterator::fromArray(['a', 'b', 'c', 'b']), 'b', null, 1];
     }
 
-    /**
-     * @test
-     * @dataProvider indexOfExamples
-     */
+    #[DataProvider('indexOfExamples')]
+    #[Test]
     public function indexOfWorks($array, $searchElement, $fromIndex, $expected): void
     {
         $helper = new ArrayHelper();
@@ -216,10 +204,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'traversable' => [TestArrayIterator::fromArray(['a', 'b', 'c']), false];
     }
 
-    /**
-     * @test
-     * @dataProvider isEmptyExamples
-     */
+    #[DataProvider('isEmptyExamples')]
+    #[Test]
     public function isEmptyWorks($array, $expected): void
     {
         $helper = new ArrayHelper();
@@ -237,10 +223,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'empty traversable' => [TestArrayIterator::fromArray([]), false];
     }
 
-    /**
-     * @test
-     * @dataProvider firstExamples
-     */
+    #[DataProvider('firstExamples')]
+    #[Test]
     public function firstWorks($array, $expected): void
     {
         $helper = new ArrayHelper();
@@ -258,10 +242,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'empty traversable' => [TestArrayIterator::fromArray([]), false];
     }
 
-    /**
-     * @test
-     * @dataProvider lastExamples
-     */
+    #[DataProvider('lastExamples')]
+    #[Test]
     public function lastWorks($array, $expected): void
     {
         $helper = new ArrayHelper();
@@ -278,10 +260,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'traversable' => [TestArrayIterator::fromArray(['foo' => 'bar', 'bar' => 'baz']), true];
     }
 
-    /**
-     * @test
-     * @dataProvider randomExamples
-     */
+    #[DataProvider('randomExamples')]
+    #[Test]
     public function randomWorks($array, $expected): void
     {
         $helper = new ArrayHelper();
@@ -303,10 +283,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'traversable' => [TestArrayIterator::fromArray([4, 2, 3, 1]), [1, 2, 3, 4]];
     }
 
-    /**
-     * @test
-     * @dataProvider sortExamples
-     */
+    #[DataProvider('sortExamples')]
+    #[Test]
     public function sortWorks($array, $expected): void
     {
         $helper = new ArrayHelper();
@@ -322,10 +300,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'traversable' => [TestArrayIterator::fromArray(['foo' => 'bar', 'baz' => 'foo', 'bar' => 'baz']), ['bar' => 'baz', 'baz' => 'foo', 'foo' => 'bar']];
     }
 
-    /**
-     * @test
-     * @dataProvider ksortExamples
-     */
+    #[DataProvider('ksortExamples')]
+    #[Test]
     public function ksortWorks($array, $expected): void
     {
         $helper = new ArrayHelper();
@@ -342,10 +318,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'traversable' => [TestArrayIterator::fromArray([1, 2, 3, 4])];
     }
 
-    /**
-     * @test
-     * @dataProvider shuffleExamples
-     */
+    #[DataProvider('shuffleExamples')]
+    #[Test]
     public function shuffleWorks($array): void
     {
         $helper = new ArrayHelper();
@@ -378,10 +352,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider uniqueExamples
-     */
+    #[DataProvider('uniqueExamples')]
+    #[Test]
     public function uniqueWorks($array, $expected): void
     {
         $helper = new ArrayHelper();
@@ -398,10 +370,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'traversable' => [TestArrayIterator::fromArray(['z', '7d', 'i', '7']), ['z', '7d', 'i']];
     }
 
-    /**
-     * @test
-     * @dataProvider popExamples
-     */
+    #[DataProvider('popExamples')]
+    #[Test]
     public function popWorks($array, $expected): void
     {
         $helper = new ArrayHelper();
@@ -423,10 +393,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'null' => [null, 'b', 'c', ['b', 'c']];
     }
 
-    /**
-     * @test
-     * @dataProvider pushExamples
-     */
+    #[DataProvider('pushExamples')]
+    #[Test]
     public function pushWorks($array, $element1, $element2, $expected): void
     {
         $helper = new ArrayHelper();
@@ -443,10 +411,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'traversable' => [TestArrayIterator::fromArray(['z', '7d', 'i', '7']), ['7d', 'i', '7']];
     }
 
-    /**
-     * @test
-     * @dataProvider shiftExamples
-     */
+    #[DataProvider('shiftExamples')]
+    #[Test]
     public function shiftWorks($array, $expected): void
     {
         $helper = new ArrayHelper();
@@ -463,10 +429,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'traversable' => [TestArrayIterator::fromArray(['z', '7d', 'i', '7']), 'a', 42, [42, 'a', 'z', '7d', 'i', '7']];
     }
 
-    /**
-     * @test
-     * @dataProvider unshiftExamples
-     */
+    #[DataProvider('unshiftExamples')]
+    #[Test]
     public function unshiftWorks($array, $element1, $element2, $expected): void
     {
         $helper = new ArrayHelper();
@@ -483,10 +447,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'traversable' => [TestArrayIterator::fromArray(['z', '7d', 'i', '7']), ['z', '7d', 42, 'abc', 'Neos'], 2, 2, 42, 'abc', 'Neos'];
     }
 
-    /**
-     * @test
-     * @dataProvider spliceExamples
-     */
+    #[DataProvider('spliceExamples')]
+    #[Test]
     public function spliceWorks($array, $expected, $offset, $length, $element1, $element2, $element3): void
     {
         $helper = new ArrayHelper();
@@ -494,9 +456,7 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertEquals($expected, $splicedArray);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function spliceNoReplacements(): void
     {
         $helper = new ArrayHelper();
@@ -511,10 +471,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'traversable' => [TestArrayIterator::fromArray(['a', 'b', 'c']), ['a' => 0, 'b' => 1, 'c' => 2]];
     }
 
-    /**
-     * @test
-     * @dataProvider flipExamples
-     */
+    #[DataProvider('flipExamples')]
+    #[Test]
     public function flipWorks($array, $expected): void
     {
         $helper = new ArrayHelper();
@@ -539,10 +497,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider rangeExamples
-     */
+    #[DataProvider('rangeExamples')]
+    #[Test]
     public function rangeWorks($arguments, $expected): void
     {
         $helper = new ArrayHelper();
@@ -571,10 +527,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider setExamples
-     */
+    #[DataProvider('setExamples')]
+    #[Test]
     public function setWorks($arguments, $expected): void
     {
         $helper = new ArrayHelper();
@@ -614,10 +568,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider mapExamples
-     */
+    #[DataProvider('mapExamples')]
+    #[Test]
     public function mapWorks($array, $callback, $expected): void
     {
         $helper = new ArrayHelper();
@@ -677,10 +629,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider reduceExamples
-     */
+    #[DataProvider('reduceExamples')]
+    #[Test]
     public function reduceWorks($array, $callback, $initialValue, $expected): void
     {
         $helper = new ArrayHelper();
@@ -733,10 +683,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider filterExamples
-     */
+    #[DataProvider('filterExamples')]
+    #[Test]
     public function filterWorks($array, $callback, $expected): void
     {
         $helper = new ArrayHelper();
@@ -779,10 +727,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider someExamples
-     */
+    #[DataProvider('someExamples')]
+    #[Test]
     public function someWorks($array, $callback, $expected): void
     {
         $helper = new ArrayHelper();
@@ -825,10 +771,8 @@ final class ArrayHelperTest extends \Neos\Flow\Tests\UnitTestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider everyExamples
-     */
+    #[DataProvider('everyExamples')]
+    #[Test]
     public function everyWorks($array, $callback, $expected): void
     {
         $helper = new ArrayHelper();

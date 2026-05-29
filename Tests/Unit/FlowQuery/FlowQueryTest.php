@@ -13,7 +13,17 @@ namespace Neos\Eel\Tests\Unit\FlowQuery;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\DataProvider;
+use Neos\Eel\FlowQuery\Operations\Object\FilterOperation;
+use Neos\Eel\FlowQuery\Operations\CountOperation;
+use Neos\Eel\FlowQuery\Operations\FirstOperation;
+use Neos\Eel\FlowQuery\Operations\LastOperation;
+use Neos\Eel\FlowQuery\Operations\SliceOperation;
+use Neos\Eel\FlowQuery\Operations\GetOperation;
+use Neos\Eel\FlowQuery\Operations\IsOperation;
+use Neos\Eel\FlowQuery\Operations\Object\ChildrenOperation;
+use Neos\Eel\FlowQuery\Operations\Object\PropertyOperation;
 use Neos\Eel\FlowQuery\FizzleException;
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Eel\FlowQuery\OperationResolver;
@@ -33,9 +43,7 @@ final class FlowQueryTest extends UnitTestCase
      */
     protected $mockPersistenceManager;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructWithFlowQueryIsIdempotent(): void
     {
         $flowQuery = new FlowQuery(['a', 'b', 'c']);
@@ -44,9 +52,7 @@ final class FlowQueryTest extends UnitTestCase
         self::assertEquals($flowQuery->getContext(), $wrappedQuery->getContext());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function firstReturnsFirstObject(): void
     {
         $myObject = new \stdClass();
@@ -58,9 +64,7 @@ final class FlowQueryTest extends UnitTestCase
         self::assertSame([$myObject], iterator_to_array($query->first()));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function lastReturnsLastObject(): void
     {
         $myObject = new \stdClass();
@@ -72,9 +76,7 @@ final class FlowQueryTest extends UnitTestCase
         self::assertSame([$myObject2], iterator_to_array($query->last()));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function sliceReturnsSlicedObject(): void
     {
         $myObject = new \stdClass();
@@ -91,9 +93,7 @@ final class FlowQueryTest extends UnitTestCase
         self::assertSame([$myObject3], iterator_to_array($query->slice(2)));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function filterOperationFiltersArrays(): void
     {
         $myObject = new \stdClass();
@@ -413,10 +413,8 @@ final class FlowQueryTest extends UnitTestCase
         ];
     }
 
-    /**
-     * @dataProvider dataProviderForFilter
-     * @test
-     */
+    #[DataProvider('dataProviderForFilter')]
+    #[Test]
     public function filterCanFilterObjects($sourceObjects, $filter, $expectedResult): void
     {
         $query = $this->createFlowQuery($sourceObjects);
@@ -425,20 +423,16 @@ final class FlowQueryTest extends UnitTestCase
         self::assertSame($expectedResult, iterator_to_array($filterObject));
     }
 
-    /**
-     * @dataProvider dataProviderForFilter
-     * @test
-     */
+    #[DataProvider('dataProviderForFilter')]
+    #[Test]
     public function isCanFilterObjects($sourceObjects, $filter, $expectedResult): void
     {
         $query = $this->createFlowQuery($sourceObjects);
         self::assertSame(count($expectedResult) > 0, $query->is($filter));
     }
 
-    /**
-     * @dataProvider dataProviderForFilter
-     * @test
-     */
+    #[DataProvider('dataProviderForFilter')]
+    #[Test]
     public function countReturnsCorrectNumber($sourceObjects, $filter, $expectedResult): void
     {
         $query = $this->createFlowQuery($sourceObjects);
@@ -447,9 +441,7 @@ final class FlowQueryTest extends UnitTestCase
         self::assertCount(count($sourceObjects), $query);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function filterOperationFiltersNumbersCorrectly(): void
     {
         $myObject = new \stdClass();
@@ -552,10 +544,8 @@ final class FlowQueryTest extends UnitTestCase
         ];
     }
 
-    /**
-     * @dataProvider dataProviderForChildrenAndFilterAndProperty
-     * @test
-     */
+    #[DataProvider('dataProviderForChildrenAndFilterAndProperty')]
+    #[Test]
     public function childrenAndFilterAndPropertyWorks($sourceObjects, array $expressions, $expectedResult, $isFinal = false): void
     {
         $query = $this->createFlowQuery($sourceObjects);
@@ -591,10 +581,8 @@ final class FlowQueryTest extends UnitTestCase
         yield ['$query->children("foo[foo]")->filter("foo[foo]")'];
     }
 
-    /**
-     * @dataProvider dataProviderForErrorQueries
-     * @test
-     */
+    #[DataProvider('dataProviderForErrorQueries')]
+    #[Test]
     public function errorQueriesThrowError($expression): void
     {
         $this->expectException(FizzleException::class);
@@ -629,7 +617,7 @@ final class FlowQueryTest extends UnitTestCase
         $objectManager->method('get')->willReturnCallBack(function ($className) use ($mockPersistenceManager) {
             $instance = new $className;
             // Special case to inject the mock persistence manager into the filter operation
-            if ($className === Operations\Object\FilterOperation::class) {
+            if ($className === FilterOperation::class) {
                 ObjectAccess::setProperty($instance, 'persistenceManager', $mockPersistenceManager, true);
             }
             return $instance;
@@ -646,15 +634,15 @@ final class FlowQueryTest extends UnitTestCase
         ]);
 
         $operationResolver->_set('operations', [
-            'count' => [300 => Operations\CountOperation::class],
-            'first' => [300 => Operations\FirstOperation::class],
-            'last' => [300 => Operations\LastOperation::class],
-            'slice' => [300 => Operations\SliceOperation::class],
-            'get' => [300 => Operations\GetOperation::class],
-            'is' => [300 => Operations\IsOperation::class],
-            'filter' => [300 => Operations\Object\FilterOperation::class],
-            'children' => [300 => Operations\Object\ChildrenOperation::class],
-            'property' => [300 => Operations\Object\PropertyOperation::class]
+            'count' => [300 => CountOperation::class],
+            'first' => [300 => FirstOperation::class],
+            'last' => [300 => LastOperation::class],
+            'slice' => [300 => SliceOperation::class],
+            'get' => [300 => GetOperation::class],
+            'is' => [300 => IsOperation::class],
+            'filter' => [300 => FilterOperation::class],
+            'children' => [300 => ChildrenOperation::class],
+            'property' => [300 => PropertyOperation::class]
         ]);
 
         $flowQuery->_set('operationResolver', $operationResolver);

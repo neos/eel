@@ -13,13 +13,15 @@ namespace Neos\Eel\Tests\Unit;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use Neos\Flow\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Neos\Eel\Helper\JsonHelper;
 
 /**
  * Tests for JsonHelper
  */
-final class JsonHelperTest extends \Neos\Flow\Tests\UnitTestCase
+final class JsonHelperTest extends UnitTestCase
 {
     public static function stringifyExamples(): \Iterator
     {
@@ -37,10 +39,8 @@ final class JsonHelperTest extends \Neos\Flow\Tests\UnitTestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider stringifyExamples
-     */
+    #[DataProvider('stringifyExamples')]
+    #[Test]
     public function stringifyWorks($value, $expected)
     {
         $helper = new JsonHelper();
@@ -70,10 +70,8 @@ final class JsonHelperTest extends \Neos\Flow\Tests\UnitTestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider parseExamples
-     */
+    #[DataProvider('parseExamples')]
+    #[Test]
     public function parseWorks($arguments, $expected)
     {
         $helper = new JsonHelper();

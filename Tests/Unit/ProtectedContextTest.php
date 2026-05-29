@@ -13,7 +13,8 @@ namespace Neos\Eel\Tests\Unit;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use PHPUnit\Framework\Attributes\Test;
+use Neos\Eel\Helper\StringHelper;
 use Neos\Cache\Frontend\StringFrontend;
 use Neos\Eel\CompilingEvaluator;
 use Neos\Eel\NotAllowedException;
@@ -26,9 +27,7 @@ use Neos\Flow\Tests\UnitTestCase;
  */
 final class ProtectedContextTest extends UnitTestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function methodCallToAnyValueIsNotAllowed()
     {
         $this->expectException(NotAllowedException::class);
@@ -42,9 +41,7 @@ final class ProtectedContextTest extends UnitTestCase
         $evaluator->evaluate('secure.callMe("Christopher")', $context);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function arrayAccessResultIsStillUntrusted()
     {
         $this->expectException(NotAllowedException::class);
@@ -58,9 +55,7 @@ final class ProtectedContextTest extends UnitTestCase
         $evaluator->evaluate('secure[0].callMe("Christopher")', $context);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function propertyAccessToAnyValueIsAllowed()
     {
         $object = (object)[
@@ -77,13 +72,11 @@ final class ProtectedContextTest extends UnitTestCase
         self::assertEquals('Bar', $result);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function methodCallToAllowedValueIsAllowed()
     {
         $context = new ProtectedContext([
-            'String' => new \Neos\Eel\Helper\StringHelper()
+            'String' => new StringHelper()
         ]);
         $context->allow('String.*');
 
@@ -94,9 +87,7 @@ final class ProtectedContextTest extends UnitTestCase
         self::assertEquals('World', $result);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function firstLevelFunctionsHaveToBeAllowed()
     {
         $this->expectException(NotAllowedException::class);
@@ -111,9 +102,7 @@ final class ProtectedContextTest extends UnitTestCase
         $evaluator->evaluate('ident(42)', $context);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function resultOfFirstLevelMethodCallIsProtected()
     {
         $securedObject = new TestObject();
@@ -135,9 +124,7 @@ final class ProtectedContextTest extends UnitTestCase
         $evaluator->evaluate('ident(value).callMe("Foo")', $context);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function resultOfAllowedMethodCallIsProtected()
     {
         $securedObject = new TestObject();
@@ -161,9 +148,7 @@ final class ProtectedContextTest extends UnitTestCase
         $evaluator->evaluate('Array.reverse(value)[0].callMe("Foo")', $context);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function chainedCallsArePossibleWithExplicitContextWrapping()
     {
         $context = new ProtectedContext([
@@ -185,9 +170,7 @@ final class ProtectedContextTest extends UnitTestCase
         self::assertEquals(2, $result);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function protectedContextAwareInterfaceAllowsCallsDynamicallyWithoutAllowlist()
     {
         $securedObject = new TestObject();
@@ -204,9 +187,7 @@ final class ProtectedContextTest extends UnitTestCase
         self::assertEquals('Hello, Foo!', $result);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function methodCallToNullValueDoesNotThrowNotAllowedException()
     {
         $context = new ProtectedContext([

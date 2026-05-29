@@ -13,13 +13,17 @@ namespace Neos\Eel\Tests\Unit;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use Neos\Flow\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
+use Neos\Eel\InterpretedEvaluator;
+use Neos\Eel\Context;
 use Neos\Eel\Helper\MathHelper;
 
 /**
  * Tests for MathHelper
  */
-final class MathHelperTest extends \Neos\Flow\Tests\UnitTestCase
+final class MathHelperTest extends UnitTestCase
 {
     /**
      * Define a "not a number" constant for comparison (because NAN !== NAN)
@@ -36,10 +40,8 @@ final class MathHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'round with float precision' => [123.4567, 1.5, static::NAN];
     }
 
-    /**
-     * @test
-     * @dataProvider roundExamples
-     */
+    #[DataProvider('roundExamples')]
+    #[Test]
     public function roundWorks($value, $precision, $expected): void
     {
         $helper = new MathHelper();
@@ -63,15 +65,13 @@ final class MathHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'SQRT2' => ['Math.SQRT2', 1.414];
     }
 
-    /**
-     * @test
-     * @dataProvider constantsExamples
-     */
+    #[DataProvider('constantsExamples')]
+    #[Test]
     public function constantsWorks($method, $expected): void
     {
         $helper = new MathHelper();
-        $evaluator = new \Neos\Eel\InterpretedEvaluator();
-        $context = new \Neos\Eel\Context([
+        $evaluator = new InterpretedEvaluator();
+        $context = new Context([
             'Math' => $helper
         ]);
         $result = $evaluator->evaluate($method, $context);
@@ -95,15 +95,13 @@ final class MathHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'tanh(x)' => ['Math.tanh(1)', 0.7615];
     }
 
-    /**
-     * @test
-     * @dataProvider trigonometricExamples
-     */
+    #[DataProvider('trigonometricExamples')]
+    #[Test]
     public function trigonometricFunctionsWork($method, $expected): void
     {
         $helper = new MathHelper();
-        $evaluator = new \Neos\Eel\InterpretedEvaluator();
-        $context = new \Neos\Eel\Context([
+        $evaluator = new InterpretedEvaluator();
+        $context = new Context([
             'Math' => $helper
         ]);
         $result = $evaluator->evaluate($method, $context);
@@ -177,15 +175,13 @@ final class MathHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'trunc("foo")' => ['Math.trunc("foo")', static::NAN];
     }
 
-    /**
-     * @test
-     * @dataProvider variousExamples
-     */
+    #[DataProvider('variousExamples')]
+    #[Test]
     public function variousFunctionsWork($method, $expected): void
     {
         $helper = new MathHelper();
-        $evaluator = new \Neos\Eel\InterpretedEvaluator();
-        $context = new \Neos\Eel\Context([
+        $evaluator = new InterpretedEvaluator();
+        $context = new Context([
             'Math' => $helper
         ]);
         $result = $evaluator->evaluate($method, $context);
@@ -216,10 +212,8 @@ final class MathHelperTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'isNaN(INF)' => ['isNaN', INF, false];
     }
 
-    /**
-     * @test
-     * @dataProvider finiteAndNanExamples
-     */
+    #[DataProvider('finiteAndNanExamples')]
+    #[Test]
     public function finiteAndNanFunctionsWork($method, $value, $expected): void
     {
         $helper = new MathHelper();
@@ -228,9 +222,7 @@ final class MathHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertSame($expected, $result);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function randomReturnsARandomResultFromZeroToOneExclusive(): void
     {
         $helper = new MathHelper();
@@ -247,9 +239,7 @@ final class MathHelperTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertTrue($atLeastOneRandomResult, 'random() should return a random result');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function randomIntReturnsARandomResultFromMinToMaxExclusive(): void
     {
         $helper = new MathHelper();

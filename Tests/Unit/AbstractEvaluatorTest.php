@@ -13,7 +13,10 @@ namespace Neos\Eel\Tests\Unit;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use Neos\Eel\ProtectedContext;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
+use Neos\Eel\Package;
 use Neos\Eel\Context;
 use Neos\Eel\EelEvaluatorInterface;
 use Neos\Eel\EvaluationException;
@@ -222,9 +225,9 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
 
     public static function objectPathOnObjectExpressions(): array
     {
-        $obj = new Fixtures\TestObject();
+        $obj = new TestObject();
         $obj->setProperty('Test');
-        $nested = new Fixtures\TestObject();
+        $nested = new TestObject();
         $nested->setProperty($obj);
         // Wrap an object inside a context
         $c = new Context([
@@ -270,7 +273,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
         ];
         $c = new Context($contextArray);
 
-        $protectedContext = new \Neos\Eel\ProtectedContext($contextArray);
+        $protectedContext = new ProtectedContext($contextArray);
         $protectedContext->allow('*');
         return [
             // Call first-level method
@@ -363,108 +366,84 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
         yield ['a > b ? 1 + a : 2 + b', $c, 12];
     }
 
-    /**
-     * @test
-     * @dataProvider integerLiterals
-     */
+    #[DataProvider('integerLiterals')]
+    #[Test]
     public function integerLiteralsCanBeParsed(string $expression, Context $context, mixed $result): void
     {
         $this->assertEvaluated($result, $expression, $context);
     }
 
-    /**
-     * @test
-     * @dataProvider floatLiterals
-     */
+    #[DataProvider('floatLiterals')]
+    #[Test]
     public function floatLiteralsCanBeParsed(string $expression, Context $context, mixed $result): void
     {
         $this->assertEvaluated($result, $expression, $context);
     }
 
-    /**
-     * @test
-     * @dataProvider stringLiterals
-     */
+    #[DataProvider('stringLiterals')]
+    #[Test]
     public function stringLiteralsCanBeParsed(string $expression, Context $context, mixed $result): void
     {
         $this->assertEvaluated($result, $expression, $context);
     }
 
-    /**
-     * @test
-     * @dataProvider stringConcatenations
-     */
+    #[DataProvider('stringConcatenations')]
+    #[Test]
     public function stringConcatenationsCanBeParsed(string $expression, Context $context, mixed $result): void
     {
         $this->assertEvaluated($result, $expression, $context);
     }
 
-    /**
-     * @test
-     * @dataProvider notExpressions
-     */
+    #[DataProvider('notExpressions')]
+    #[Test]
     public function notExpressionsCanBeParsed(string $expression, Context $context, mixed $result): void
     {
         $this->assertEvaluated($result, $expression, $context);
     }
 
-    /**
-     * @test
-     * @dataProvider comparisonExpressions
-     */
+    #[DataProvider('comparisonExpressions')]
+    #[Test]
     public function comparisonExpressionsCanBeParsed(string $expression, Context $context, mixed $result): void
     {
         $this->assertEvaluated($result, $expression, $context);
     }
 
-    /**
-     * @test
-     * @dataProvider calculationExpressions
-     */
+    #[DataProvider('calculationExpressions')]
+    #[Test]
     public function calculationExpressionsCanBeParsed(string $expression, Context $context, mixed $result): void
     {
         $this->assertEvaluated($result, $expression, $context);
     }
 
-    /**
-     * @test
-     * @dataProvider combinedExpressions
-     */
+    #[DataProvider('combinedExpressions')]
+    #[Test]
     public function combinedExpressionsCanBeParsed(string $expression, Context $context, mixed $result): void
     {
         $this->assertEvaluated($result, $expression, $context);
     }
 
-    /**
-     * @test
-     * @dataProvider objectPathOnArrayExpressions
-     */
+    #[DataProvider('objectPathOnArrayExpressions')]
+    #[Test]
     public function objectPathOnArrayExpressionsCanBeParsed(string $expression, Context $context, mixed $result): void
     {
         $this->assertEvaluated($result, $expression, $context);
     }
 
-    /**
-     * @test
-     * @dataProvider objectPathOnObjectExpressions
-     */
+    #[DataProvider('objectPathOnObjectExpressions')]
+    #[Test]
     public function objectPathOnObjectExpressionsCanBeParsed(string $expression, Context $context, mixed $result): void
     {
         $this->assertEvaluated($result, $expression, $context);
     }
 
-    /**
-     * @test
-     * @dataProvider methodCallExpressions
-     */
+    #[DataProvider('methodCallExpressions')]
+    #[Test]
     public function methodCallExpressionsCanBeParsed(string $expression, Context $context, mixed $result): void
     {
         $this->assertEvaluated($result, $expression, $context);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function methodCallOfUndefinedFunctionThrowsException(): void
     {
         $this->expectException(EvaluationException::class);
@@ -478,9 +457,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
         $this->assertEvaluated(null, 'arr.funk("title")', $c);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function methodCallOfUnknownMethodThrowsException(): void
     {
         $this->expectException(EvaluationException::class);
@@ -492,37 +469,29 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
         $this->assertEvaluated(null, 'context.callYou("title")', $c);
     }
 
-    /**
-     * @test
-     * @dataProvider booleanExpressions
-     */
+    #[DataProvider('booleanExpressions')]
+    #[Test]
     public function booleanExpressionsCanBeParsed(string $expression, Context $context, mixed $result): void
     {
         $this->assertEvaluated($result, $expression, $context);
     }
 
-    /**
-     * @test
-     * @dataProvider arrayLiteralExpressions
-     */
+    #[DataProvider('arrayLiteralExpressions')]
+    #[Test]
     public function arrayLiteralsCanBeParsed(string $expression, Context $context, mixed $result): void
     {
         $this->assertEvaluated($result, $expression, $context);
     }
 
-    /**
-     * @test
-     * @dataProvider objectLiteralExpressions
-     */
+    #[DataProvider('objectLiteralExpressions')]
+    #[Test]
     public function objectLiteralsCanBeParsed(string $expression, Context $context, mixed $result): void
     {
         $this->assertEvaluated($result, $expression, $context);
     }
 
-    /**
-     * @test
-     * @dataProvider conditionalOperatorExpressions
-     */
+    #[DataProvider('conditionalOperatorExpressions')]
+    #[Test]
     public function conditionalOperatorsCanBeParsed(string $expression, Context $context, mixed $result): void
     {
         $this->assertEvaluated($result, $expression, $context);
@@ -541,28 +510,22 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
         yield ['"a "super\" \'thing\'"'];
     }
 
-    /**
-     * @test
-     * @dataProvider invalidExpressions
-     */
+    #[DataProvider('invalidExpressions')]
+    #[Test]
     public function invalidExpressionsThrowExceptions(string $expression): void
     {
         $this->expectException(ParserException::class);
         $this->assertEvaluated(false, $expression, new Context());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function expressionStartingWithWhitespaceWorkAsExpected(): void
     {
         $context = new Context(['variable' => 1]);
         $this->assertEvaluated(1, ' variable', $context);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function expressionEndingWithWhitespaceWorkAsExpected(): void
     {
         $context = new Context(['variable' => 1]);
@@ -580,7 +543,7 @@ abstract class AbstractEvaluatorTest extends UnitTestCase
         self::assertSame($expected, $evaluator->evaluate($expression, $context));
 
         $wrappedExpression = '${' . $expression . '}';
-        self::assertSame(1, preg_match(\Neos\Eel\Package::EelExpressionRecognizer, $wrappedExpression), 'The wrapped expression ' . $wrappedExpression . ' was not detected as Eel expression');
+        self::assertSame(1, preg_match(Package::EelExpressionRecognizer, $wrappedExpression), 'The wrapped expression ' . $wrappedExpression . ' was not detected as Eel expression');
     }
 
     /**

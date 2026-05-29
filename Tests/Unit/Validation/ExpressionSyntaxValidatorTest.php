@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Neos\Eel\Tests\Unit\Validation;
 
+use PHPUnit\Framework\Attributes\Test;
 use Neos\Eel\Validation\ExpressionSyntaxValidator;
 use Neos\Flow\Tests\Unit\Validation\Validator\AbstractValidatorTestcase;
 
@@ -17,9 +18,7 @@ final class ExpressionSyntaxValidatorTest extends AbstractValidatorTestcase
      */
     protected $validatorClassName = ExpressionSyntaxValidator::class;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function validExpressionPasses()
     {
         self::assertFalse(
@@ -27,9 +26,7 @@ final class ExpressionSyntaxValidatorTest extends AbstractValidatorTestcase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function invalidExpressionIsConsideredErroneous()
     {
         self::assertTrue(
@@ -37,9 +34,7 @@ final class ExpressionSyntaxValidatorTest extends AbstractValidatorTestcase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function invalidExpressionGivesErrorPositionInformation()
     {
         $errorArguments =

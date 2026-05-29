@@ -13,20 +13,20 @@ namespace Neos\Eel\Tests\Unit\FlowQuery\Operations;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use Neos\Flow\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Eel\FlowQuery\Operations\RemoveOperation;
 
 /**
  * RemoveOperation test
  */
-final class RemoveOperationTest extends \Neos\Flow\Tests\UnitTestCase
+final class RemoveOperationTest extends UnitTestCase
 {
     /**
      * This corresponds to ${q(node).remove(q(someOtherNode))}
-     *
-     * @test
      */
+    #[Test]
     public function removeWithFlowQueryArgumentRemovesFromCurrentContext()
     {
         $object1 = new \stdClass();
@@ -45,9 +45,8 @@ final class RemoveOperationTest extends \Neos\Flow\Tests\UnitTestCase
 
     /**
      * This corresponds to ${q(node).remove(someOtherNode)}
-     *
-     * @test
      */
+    #[Test]
     public function removeWithNodeArgumentRemovesFromCurrentContext()
     {
         $object1 = new \stdClass();
@@ -66,9 +65,8 @@ final class RemoveOperationTest extends \Neos\Flow\Tests\UnitTestCase
 
     /**
      * This corresponds to ${q(node).remove([someOtherNode, ...]))}
-     *
-     * @test
      */
+    #[Test]
     public function removeWithArrayArgumentRemovesFromCurrentContext()
     {
         $object1 = new \stdClass();

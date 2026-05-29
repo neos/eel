@@ -13,14 +13,16 @@ namespace Neos\Eel\Tests\Unit\FlowQuery\Operations;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use Neos\Flow\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Eel\FlowQuery\Operations\SliceOperation;
 
 /**
  * SliceOperation test
  */
-final class SliceOperationTest extends \Neos\Flow\Tests\UnitTestCase
+final class SliceOperationTest extends UnitTestCase
 {
     public static function sliceExamples(): \Iterator
     {
@@ -34,10 +36,8 @@ final class SliceOperationTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'negative start and end' => [['a', 'b', 'c', 'd'], [-3, -1], ['b', 'c']];
     }
 
-    /**
-     * @test
-     * @dataProvider sliceExamples
-     */
+    #[DataProvider('sliceExamples')]
+    #[Test]
     public function evaluateSetsTheCorrectPartOfTheContextArray($value, $arguments, $expected)
     {
         $flowQuery = new FlowQuery($value);

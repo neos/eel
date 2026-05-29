@@ -13,7 +13,7 @@ namespace Neos\Eel\Tests\Unit;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use PHPUnit\Framework\Attributes\Test;
 use Neos\Eel\Helper\FileHelper;
 use Neos\Flow\Tests\UnitTestCase;
 use org\bovigo\vfs\vfsStream;
@@ -28,9 +28,7 @@ final class FileHelperTest extends UnitTestCase
         vfsStream::setup('Foo');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function readFileWillReturnFileContents()
     {
         $filepath = 'vfs://Foo/bar.txt';
@@ -42,9 +40,7 @@ final class FileHelperTest extends UnitTestCase
         self::assertSame($fileContent, $fileHelper->readFile($filepath));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSha1WillReturnTheFileSha1()
     {
         $filepath = 'vfs://Foo/bar.txt';
@@ -57,9 +53,7 @@ final class FileHelperTest extends UnitTestCase
         self::assertEquals($expected, $fileHelper->getSha1($filepath));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getPathInfoReturnsPathInformation()
     {
         $filepath = 'vfs://Foo/bar.txt';
@@ -75,9 +69,7 @@ final class FileHelperTest extends UnitTestCase
         self::assertEquals('bar.txt', $result['basename']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function statReturnsStatInfo()
     {
         $filepath = 'vfs://Foo/bar.txt';

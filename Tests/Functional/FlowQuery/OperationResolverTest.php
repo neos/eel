@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Neos\Eel\Tests\Functional\FlowQuery;
 
+use PHPUnit\Framework\Attributes\Test;
+use Neos\Eel\Tests\Functional\FlowQuery\Fixtures\ExampleFinalOperationWithHigherPriority;
 use Neos\Eel\FlowQuery\OperationResolver;
 use Neos\Eel\FlowQuery\OperationResolverInterface;
 use Neos\Flow\Tests\FunctionalTestCase;
@@ -25,27 +27,21 @@ final class OperationResolverTest extends FunctionalTestCase
         $this->operationResolver = $this->objectManager->get(OperationResolver::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isFinalOperationReturnsTrueForFinalOperations()
     {
         self::assertTrue($this->operationResolver->isFinalOperation('exampleFinalOperation'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isFinalOperationReturnsFalseForNonFinalOperations()
     {
         self::assertFalse($this->operationResolver->isFinalOperation('exampleNonFinalOperation'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function higherPriorityOverridesLowerPriority()
     {
-        self::assertInstanceOf(Fixtures\ExampleFinalOperationWithHigherPriority::class, $this->operationResolver->resolveOperation('exampleFinalOperation', []));
+        self::assertInstanceOf(ExampleFinalOperationWithHigherPriority::class, $this->operationResolver->resolveOperation('exampleFinalOperation', []));
     }
 }

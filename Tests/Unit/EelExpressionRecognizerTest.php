@@ -13,11 +13,13 @@ namespace Neos\Eel\Tests\Unit;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use Neos\Flow\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Neos\Eel\Package;
 use Neos\Eel\Utility;
 
-final class EelExpressionRecognizerTest extends \Neos\Flow\Tests\UnitTestCase
+final class EelExpressionRecognizerTest extends UnitTestCase
 {
     public static function wrappedEelExpressionProvider(): \Generator
     {
@@ -50,10 +52,8 @@ final class EelExpressionRecognizerTest extends \Neos\Flow\Tests\UnitTestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider wrappedEelExpressionProvider
-     */
+    #[DataProvider('wrappedEelExpressionProvider')]
+    #[Test]
     public function unwrapEelExpression(string $wrapped, string $unwrapped): void
     {
         self::assertEquals(
@@ -85,10 +85,8 @@ final class EelExpressionRecognizerTest extends \Neos\Flow\Tests\UnitTestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider notAnExpressionProvider
-     */
+    #[DataProvider('notAnExpressionProvider')]
+    #[Test]
     public function notAnExpression(string $expression): void
     {
         self::assertNull(
@@ -96,7 +94,7 @@ final class EelExpressionRecognizerTest extends \Neos\Flow\Tests\UnitTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function leftOpenEelDoesntResultInCatastrophicBacktracking(): void
     {
         $malformedExpression = '${abc abc abc abc abc abc abc abc abc abc abc ...';

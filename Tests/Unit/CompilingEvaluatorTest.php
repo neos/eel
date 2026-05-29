@@ -13,7 +13,9 @@ namespace Neos\Eel\Tests\Unit;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
+use Neos\Eel\Package;
 use Neos\Cache\Frontend\StringFrontend;
 use Neos\Eel\Context;
 use Neos\Eel\CompilingEvaluator;
@@ -48,10 +50,8 @@ final class CompilingEvaluatorTest extends AbstractEvaluatorTest
         yield ['mapWithIndex(items, (v, k) => k * v)', $c, [0, 2, 6, 12]];
     }
 
-    /**
-     * @test
-     * @dataProvider arrowFunctionExpressions
-     */
+    #[DataProvider('arrowFunctionExpressions')]
+    #[Test]
     public function arrowFunctionsCanBeParsed(string $expression, Context $context, mixed $result): void
     {
         $this->assertEvaluated($result, $expression, $context);
@@ -70,9 +70,7 @@ final class CompilingEvaluatorTest extends AbstractEvaluatorTest
         return $evaluator;
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function doubleQuotedStringLiteralVariablesAreEscaped(): void
     {
         $context = new Context('hidden');
@@ -97,6 +95,6 @@ final class CompilingEvaluatorTest extends AbstractEvaluatorTest
         self::assertSame($expected, $evaluator->evaluate($expression, $context), 'Code ' . $code . ' should evaluate to expected result');
 
         $wrappedExpression = '${' . $expression . '}';
-        self::assertSame(1, preg_match(\Neos\Eel\Package::EelExpressionRecognizer, $wrappedExpression), 'The wrapped expression ' . $wrappedExpression . ' was not detected as Eel expression');
+        self::assertSame(1, preg_match(Package::EelExpressionRecognizer, $wrappedExpression), 'The wrapped expression ' . $wrappedExpression . ' was not detected as Eel expression');
     }
 }

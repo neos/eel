@@ -13,13 +13,16 @@ namespace Neos\Eel\Tests\Unit;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use Neos\Flow\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
+use Neos\Eel\Tests\Unit\Fixtures\TestObject;
 use Neos\Eel\Context;
 
 /**
  * Eel context test
  */
-final class ContextTest extends \Neos\Flow\Tests\UnitTestCase
+final class ContextTest extends UnitTestCase
 {
     /**
      * Data provider with simple values
@@ -36,12 +39,11 @@ final class ContextTest extends \Neos\Flow\Tests\UnitTestCase
     }
 
     /**
-     * @test
-     * @dataProvider simpleValues
-     *
      * @param mixed $value
      * @param mixed $expectedUnwrappedValue
      */
+    #[DataProvider('simpleValues')]
+    #[Test]
     public function unwrapSimpleValues($value, $expectedUnwrappedValue): void
     {
         $context = new Context($value);
@@ -64,12 +66,11 @@ final class ContextTest extends \Neos\Flow\Tests\UnitTestCase
     }
 
     /**
-     * @test
-     * @dataProvider arrayValues
-     *
      * @param mixed $value
      * @param mixed $expectedUnwrappedValue
      */
+    #[DataProvider('arrayValues')]
+    #[Test]
     public function unwrapArrayValues($value, $expectedUnwrappedValue): void
     {
         $context = new Context($value);
@@ -92,13 +93,13 @@ final class ContextTest extends \Neos\Flow\Tests\UnitTestCase
     }
 
     /**
-     * @test
-     * @dataProvider arrayGetValues
      *
      * @param mixed $value
      * @param string $path
      * @param mixed $expectedGetValue
      */
+    #[DataProvider('arrayGetValues')]
+    #[Test]
     public function getValueByPathForArrayValues($value, $path, $expectedGetValue): void
     {
         $context = new Context($value);
@@ -115,7 +116,7 @@ final class ContextTest extends \Neos\Flow\Tests\UnitTestCase
     {
         $simpleObject = new \stdClass();
         $simpleObject->foo = 'bar';
-        $getterObject = new \Neos\Eel\Tests\Unit\Fixtures\TestObject();
+        $getterObject = new TestObject();
         $getterObject->setProperty('some value');
         $getterObject->setBooleanProperty(true);
 
@@ -129,13 +130,13 @@ final class ContextTest extends \Neos\Flow\Tests\UnitTestCase
     }
 
     /**
-     * @test
-     * @dataProvider objectGetValues
      *
      * @param mixed $value
      * @param string $path
      * @param mixed $expectedGetValue
      */
+    #[DataProvider('objectGetValues')]
+    #[Test]
     public function getValueByPathForObjectValues($value, $path, $expectedGetValue): void
     {
         $context = new Context($value);

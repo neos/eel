@@ -13,7 +13,8 @@ namespace Neos\Eel\Tests\Unit;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Neos\Eel\Helper\StringHelper;
 use Neos\Eel\Tests\Unit\Fixtures\TestObject;
 use Neos\Flow\Tests\UnitTestCase;
@@ -36,10 +37,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'unicode content is extracted' => ['Öaßaä', 2, 1, 'ß'];
     }
 
-    /**
-     * @test
-     * @dataProvider substrExamples
-     */
+    #[DataProvider('substrExamples')]
+    #[Test]
     public function substrWorks($string, $start, $length, $expected)
     {
         $helper = new StringHelper();
@@ -59,10 +58,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'unicode content is extracted' => ['Öaßaä', 2, 3, 'ß'];
     }
 
-    /**
-     * @test
-     * @dataProvider substringExamples
-     */
+    #[DataProvider('substringExamples')]
+    #[Test]
     public function substringWorks($string, $start, $end, $expected)
     {
         $helper = new StringHelper();
@@ -78,10 +75,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'unicode content can be accessed' => ['Öaßaü', 2, 'ß'];
     }
 
-    /**
-     * @test
-     * @dataProvider charAtExamples
-     */
+    #[DataProvider('charAtExamples')]
+    #[Test]
     public function charAtWorks($string, $index, $expected)
     {
         $helper = new StringHelper();
@@ -97,10 +92,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'unicode content can be searched' => ['Öaßaü', 'aü', null, true];
     }
 
-    /**
-     * @test
-     * @dataProvider endsWithExamples
-     */
+    #[DataProvider('endsWithExamples')]
+    #[Test]
     public function endsWithWorks($string, $search, $position, $expected)
     {
         $helper = new StringHelper();
@@ -115,10 +108,8 @@ final class StringHelperTest extends UnitTestCase
         yield ['value' => 0, 'expected' => chr(0)];
     }
 
-    /**
-     * @test
-     * @dataProvider chrExamples
-     */
+    #[DataProvider('chrExamples')]
+    #[Test]
     public function chrWorks($value, $expected)
     {
         $helper = new StringHelper();
@@ -134,10 +125,8 @@ final class StringHelperTest extends UnitTestCase
         yield ['value' => 'longer string', 'expected' => 108];
     }
 
-    /**
-     * @test
-     * @dataProvider ordExamples
-     */
+    #[DataProvider('ordExamples')]
+    #[Test]
     public function ordWorks($value, $expected)
     {
         $helper = new StringHelper();
@@ -159,10 +148,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'unicode content is matched' => ['Öaßaü', 'ßa', null, 2];
     }
 
-    /**
-     * @test
-     * @dataProvider indexOfExamples
-     */
+    #[DataProvider('indexOfExamples')]
+    #[Test]
     public function indexOfWorks($string, $search, $fromIndex, $expected)
     {
         $helper = new StringHelper();
@@ -179,10 +166,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'unicode content is matched' => ['Öaßaü', 'a', null, 3];
     }
 
-    /**
-     * @test
-     * @dataProvider lastIndexOfExamples
-     */
+    #[DataProvider('lastIndexOfExamples')]
+    #[Test]
     public function lastIndexOfWorks($string, $search, $fromIndex, $expected)
     {
         $helper = new StringHelper();
@@ -195,10 +180,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'matches' => ['For more information, see Chapter 3.4.5.1', '/(chapter \d+(\.\d)*)/i', ['Chapter 3.4.5.1', 'Chapter 3.4.5.1', '.1']];
     }
 
-    /**
-     * @test
-     * @dataProvider pregMatchExamples
-     */
+    #[DataProvider('pregMatchExamples')]
+    #[Test]
     public function pregMatchWorks($string, $pattern, $expected)
     {
         $helper = new StringHelper();
@@ -211,10 +194,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'matches' => ['<hr id="icon-one" /><hr id="icon-two" />', '/id="icon-(.+?)"/', [['id="icon-one"', 'id="icon-two"'],['one','two']]];
     }
 
-    /**
-     * @test
-     * @dataProvider pregMatchAllExamples
-     */
+    #[DataProvider('pregMatchAllExamples')]
+    #[Test]
     public function pregMatchAllWorks($string, $pattern, $expected)
     {
         $helper = new StringHelper();
@@ -231,10 +212,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'references' => ['2016-08-31', '/([0-9]+)-([0-9]+)-([0-9]+)/', '$3.$2.$1', null, '31.08.2016'];
     }
 
-    /**
-     * @test
-     * @dataProvider pregReplaceExamples
-     */
+    #[DataProvider('pregReplaceExamples')]
+    #[Test]
     public function pregReplaceWorks($string, $pattern, $replace, $limit, $expected)
     {
         $helper = new StringHelper();
@@ -248,10 +227,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'matches with limit' => ['first second third', '/\s+/', 2, ['first', 'second third']];
     }
 
-    /**
-     * @test
-     * @dataProvider pregSplitExamples
-     */
+    #[DataProvider('pregSplitExamples')]
+    #[Test]
     public function pregMSplitWorks($string, $pattern, $limit, $expected)
     {
         $helper = new StringHelper();
@@ -267,10 +244,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'unicode replacement' => ['Öaßaü', 'aßa', 'g', 'Ögü'];
     }
 
-    /**
-     * @test
-     * @dataProvider replaceExamples
-     */
+    #[DataProvider('replaceExamples')]
+    #[Test]
     public function replaceWorks($string, $search, $replace, $expected)
     {
         $helper = new StringHelper();
@@ -287,10 +262,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'empty separator with limit' => ['Foo', '', 2, ['F', 'o']];
     }
 
-    /**
-     * @test
-     * @dataProvider splitExamples
-     */
+    #[DataProvider('splitExamples')]
+    #[Test]
     public function splitWorks($string, $separator, $limit, $expected)
     {
         $helper = new StringHelper();
@@ -307,10 +280,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'unicode content can be searched' => ['Öaßaü', 'Öa', null, true];
     }
 
-    /**
-     * @test
-     * @dataProvider startsWithExamples
-     */
+    #[DataProvider('startsWithExamples')]
+    #[Test]
     public function startsWithWorks($string, $search, $position, $expected)
     {
         $helper = new StringHelper();
@@ -324,10 +295,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'firstLetterUpperCase' => ['Foo', 'Foo'];
     }
 
-    /**
-     * @test
-     * @dataProvider firstLetterToUpperCaseExamples
-     */
+    #[DataProvider('firstLetterToUpperCaseExamples')]
+    #[Test]
     public function firstLetterToUpperCaseWorks($string, $expected)
     {
         $helper = new StringHelper();
@@ -341,10 +310,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'firstLetterUpperCase' => ['Foo', 'foo'];
     }
 
-    /**
-     * @test
-     * @dataProvider firstLetterToLowerCaseExamples
-     */
+    #[DataProvider('firstLetterToLowerCaseExamples')]
+    #[Test]
     public function firstLetterToLowerCaseWorks($string, $expected)
     {
         $helper = new StringHelper();
@@ -357,10 +324,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'lowercase' => ['Foo bAr BaZ', 'foo bar baz'];
     }
 
-    /**
-     * @test
-     * @dataProvider toLowerCaseExamples
-     */
+    #[DataProvider('toLowerCaseExamples')]
+    #[Test]
     public function toLowerCaseWorks($string, $expected)
     {
         $helper = new StringHelper();
@@ -373,10 +338,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'uppercase' => ['Foo bAr BaZ', 'FOO BAR BAZ'];
     }
 
-    /**
-     * @test
-     * @dataProvider toUpperCaseExamples
-     */
+    #[DataProvider('toUpperCaseExamples')]
+    #[Test]
     public function toUpperCaseWorks($string, $expected)
     {
         $helper = new StringHelper();
@@ -392,10 +355,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'NULL string' => [null, true];
     }
 
-    /**
-     * @test
-     * @dataProvider isBlankExamples
-     */
+    #[DataProvider('isBlankExamples')]
+    #[Test]
     public function isBlankWorks($string, $expected)
     {
         $helper = new StringHelper();
@@ -411,10 +372,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'trim with charlist' => ['< abc >', '<>', ' abc '];
     }
 
-    /**
-     * @test
-     * @dataProvider trimExamples
-     */
+    #[DataProvider('trimExamples')]
+    #[Test]
     public function trimWorks($string, $charlist, $expected)
     {
         $helper = new StringHelper();
@@ -440,10 +399,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'boolean anything' => ['toBoolean', 'xz', false];
     }
 
-    /**
-     * @test
-     * @dataProvider typeConversionExamples
-     */
+    #[DataProvider('typeConversionExamples')]
+    #[Test]
     public function typeConversionWorks($method, $string, $expected)
     {
         $helper = new StringHelper();
@@ -458,10 +415,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'strip tags with multiple allowed tags' => ['<div><p><strong>important text</strong></p></div>', '<strong>, <p>', '<p><strong>important text</strong></p>'];
     }
 
-    /**
-     * @test
-     * @dataProvider stripTagsExamples
-     */
+    #[DataProvider('stripTagsExamples')]
+    #[Test]
     public function stripTagsWorks($string, $allowedTags, $expected)
     {
         $helper = new StringHelper();
@@ -469,9 +424,7 @@ final class StringHelperTest extends UnitTestCase
         self::assertSame($expected, $result);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function nl2brWorks()
     {
         $helper = new StringHelper();
@@ -479,9 +432,7 @@ final class StringHelperTest extends UnitTestCase
         self::assertSame('some<br />' . chr(10) . 'string', $result);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function rawUrlEncodeWorks()
     {
         $helper = new StringHelper();
@@ -495,10 +446,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'preserve entities' => ['Foo &amp; <a href="#">Bar</a>', true, 'Foo &amp; &lt;a href="#"&gt;Bar&lt;/a&gt;'];
     }
 
-    /**
-     * @test
-     * @dataProvider htmlSpecialCharsExamples
-     */
+    #[DataProvider('htmlSpecialCharsExamples')]
+    #[Test]
     public function htmlSpecialCharsWorks($string, $preserveEntities, $expected)
     {
         $helper = new StringHelper();
@@ -545,10 +494,8 @@ final class StringHelperTest extends UnitTestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider cropExamples
-     */
+    #[DataProvider('cropExamples')]
+    #[Test]
     public function cropWorks($methodName, $maximumCharacters, $suffixString, $text, $expected)
     {
         $helper = new StringHelper();
@@ -556,9 +503,7 @@ final class StringHelperTest extends UnitTestCase
         self::assertSame($expected, $result);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function md5Works()
     {
         $helper = new StringHelper();
@@ -566,9 +511,7 @@ final class StringHelperTest extends UnitTestCase
         self::assertSame('bacb98acf97e0b6112b1d1b650b84971', $result);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function sha1Works()
     {
         $helper = new StringHelper();
@@ -584,10 +527,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'UTF-8' => ['Cäche Flüsh', 11];
     }
 
-    /**
-     * @test
-     * @dataProvider lengthExamples
-     */
+    #[DataProvider('lengthExamples')]
+    #[Test]
     public function lengthWorks($input, $expected)
     {
         $helper = new StringHelper();
@@ -606,10 +547,8 @@ final class StringHelperTest extends UnitTestCase
         yield 'UTF-8' => ['Cäche Flüsh', 2];
     }
 
-    /**
-     * @test
-     * @dataProvider wordCountExamples
-     */
+    #[DataProvider('wordCountExamples')]
+    #[Test]
     public function wordCountWorks($input, $expected)
     {
         $helper = new StringHelper();
@@ -629,9 +568,9 @@ final class StringHelperTest extends UnitTestCase
     /**
      * @param mixed $input
      * @param string|bool $expectedResult
-     * @test
-     * @dataProvider base64encodeEncodesDataProvider
      */
+    #[DataProvider('base64encodeEncodesDataProvider')]
+    #[Test]
     public function base64encodeEncodesTests($input, $expectedResult)
     {
         $helper = new StringHelper();
@@ -649,18 +588,16 @@ final class StringHelperTest extends UnitTestCase
     /**
      * @param mixed $input
      * @param string|bool $expectedResult
-     * @test
-     * @dataProvider base64decodeEncodesDataProvider
      */
+    #[DataProvider('base64decodeEncodesDataProvider')]
+    #[Test]
     public function base64decodeEncodesTests($input, $expectedResult)
     {
         $helper = new StringHelper();
         self::assertSame($expectedResult, $helper->base64decode($input));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function base64decodeReturnsFalseIfGivenStringIsInvalidAndStrictModeIsSet()
     {
         $helper = new StringHelper();

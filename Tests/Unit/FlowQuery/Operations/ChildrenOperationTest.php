@@ -13,14 +13,16 @@ namespace Neos\Eel\Tests\Unit\FlowQuery\Operations;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use Neos\Flow\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Eel\FlowQuery\Operations\Object\ChildrenOperation;
 
 /**
  * ChildrenOperation test
  */
-final class ChildrenOperationTest extends \Neos\Flow\Tests\UnitTestCase
+final class ChildrenOperationTest extends UnitTestCase
 {
     public static function childrenExamples(): \Iterator
     {
@@ -37,10 +39,8 @@ final class ChildrenOperationTest extends \Neos\Flow\Tests\UnitTestCase
         yield 'traversal of traversables unrolls them' => [[$exampleArray], ['keyTowardsTraversable'], [$object1, $object2]];
     }
 
-    /**
-     * @test
-     * @dataProvider childrenExamples
-     */
+    #[DataProvider('childrenExamples')]
+    #[Test]
     public function evaluateSetsTheCorrectPartOfTheContextArray($value, $arguments, $expected)
     {
         $flowQuery = new FlowQuery($value);
