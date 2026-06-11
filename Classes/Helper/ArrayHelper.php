@@ -483,7 +483,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
     }
 
     /**
-     * Set the specified key in the the array
+     * Set the specified key in the array
      *
      * @param iterable $array
      * @param string|integer $key the key that should be set
