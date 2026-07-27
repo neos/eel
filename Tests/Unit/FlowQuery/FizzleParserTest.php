@@ -1,4 +1,5 @@
 <?php
+
 namespace Neos\Eel\Tests\Unit\FlowQuery;
 
 /*
@@ -11,8 +12,8 @@ namespace Neos\Eel\Tests\Unit\FlowQuery;
  * source code.
  */
 
-use PhpPeg\ParserTestWrapper;
 use Neos\Eel\FlowQuery\FizzleParser;
+use PhpPeg\ParserTestWrapper;
 
 require_once(__DIR__ . '/../../../Resources/Private/PHP/php-peg/tests/ParserTestBase.php');
 

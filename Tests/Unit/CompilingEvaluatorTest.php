@@ -1,4 +1,5 @@
 <?php
+
 namespace Neos\Eel\Tests\Unit;
 
 /*
@@ -12,8 +13,8 @@ namespace Neos\Eel\Tests\Unit;
  */
 
 use Neos\Cache\Frontend\StringFrontend;
-use Neos\Eel\Context;
 use Neos\Eel\CompilingEvaluator;
+use Neos\Eel\Context;
 
 /**
  * Compiling evaluator test

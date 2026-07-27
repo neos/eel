@@ -1,4 +1,5 @@
 <?php
+
 namespace Neos\Eel\Tests\Functional\FlowQuery\Fixtures;
 
 /*
