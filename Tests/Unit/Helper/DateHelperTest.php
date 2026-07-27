@@ -199,7 +199,7 @@ class DateHelperTest extends \Neos\Flow\Tests\UnitTestCase
         $helper = new DateHelper();
         $result = $helper->now();
         self::assertInstanceOf(\DateTime::class, $result);
-        self::assertEqualsWithDelta(time(), (integer)$result->format('U'), 1, 'Now should be now');
+        self::assertEqualsWithDelta(time(), (int)$result->format('U'), 1, 'Now should be now');
     }
 
     /**

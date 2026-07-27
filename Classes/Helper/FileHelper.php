@@ -72,7 +72,7 @@ class FileHelper implements ProtectedContextAwareInterface
     {
         return file_exists($filepath);
     }
-    
+
     /**
      * @param string $methodName
      * @return bool

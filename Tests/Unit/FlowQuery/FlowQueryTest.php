@@ -658,7 +658,7 @@ class FlowQueryTest extends UnitTestCase
         $mockPersistenceManager = $this->mockPersistenceManager;
         $objectManager = $this->createMock(ObjectManagerInterface::class);
         $objectManager->expects(self::any())->method('get')->will(self::returnCallBack(function ($className) use ($mockPersistenceManager) {
-            $instance = new $className;
+            $instance = new $className();
             // Special case to inject the mock persistence manager into the filter operation
             if ($className === Operations\Object\FilterOperation::class) {
                 ObjectAccess::setProperty($instance, 'persistenceManager', $mockPersistenceManager, true);
