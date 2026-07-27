@@ -1,4 +1,5 @@
 <?php
+
 namespace Neos\Eel\Tests\Unit\Validation;
 
 use Neos\Eel\Validation\ExpressionSyntaxValidator;

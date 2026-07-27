@@ -1,4 +1,5 @@
 <?php
+
 namespace Neos\Eel\Tests\Unit\FlowQuery;
 
 /*
@@ -14,11 +15,11 @@ namespace Neos\Eel\Tests\Unit\FlowQuery;
 use Neos\Eel\FlowQuery\FizzleException;
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Eel\FlowQuery\OperationResolver;
+use Neos\Eel\FlowQuery\Operations;
 use Neos\Flow\ObjectManagement\ObjectManagerInterface;
 use Neos\Flow\Persistence\PersistenceManagerInterface;
-use Neos\Utility\ObjectAccess;
 use Neos\Flow\Tests\UnitTestCase;
-use Neos\Eel\FlowQuery\Operations;
+use Neos\Utility\ObjectAccess;
 
 /**
  * FlowQuery test

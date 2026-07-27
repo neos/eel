@@ -1,4 +1,5 @@
 <?php
+
 namespace Neos\Eel\Tests\Unit;
 
 /*
@@ -11,8 +12,8 @@ namespace Neos\Eel\Tests\Unit;
  * source code.
  */
 
-use Neos\Eel\Context;
 use Neos\Eel\CompilingEvaluator;
+use Neos\Eel\Context;
 
 /**
  * A benchmark to test the compiling evaluator

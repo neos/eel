@@ -12,8 +12,8 @@ namespace Neos\Eel\Helper;
  * source code.
  */
 
-use Neos\Flow\Annotations as Flow;
 use Neos\Eel\ProtectedContextAwareInterface;
+use Neos\Flow\Annotations as Flow;
 use Neos\Flow\I18n\Cldr\Reader\DatesReader;
 use Neos\Flow\I18n\Formatter\DatetimeFormatter;
 use Neos\Flow\I18n\Locale;
