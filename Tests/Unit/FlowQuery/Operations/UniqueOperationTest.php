@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit\FlowQuery\Operations;
 
 /*
@@ -10,7 +13,8 @@ namespace Neos\Eel\Tests\Unit\FlowQuery\Operations;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Eel\FlowQuery\Operations\UniqueOperation;
 use Neos\Eel\Tests\Unit\Fixtures\TestArrayIterator;
@@ -19,9 +23,9 @@ use Neos\Flow\Tests\UnitTestCase;
 /**
  * UniqueOperation test
  */
-class UniqueOperationTest extends UnitTestCase
+final class UniqueOperationTest extends UnitTestCase
 {
-    public function uniqueExamples(): \Generator
+    public static function uniqueExamples(): \Generator
     {
         yield 'numeric indices' => [
             ['bar', 12, 'two', 'bar', 13, 12, false, 0, null],
@@ -41,10 +45,8 @@ class UniqueOperationTest extends UnitTestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider uniqueExamples
-     */
+    #[DataProvider('uniqueExamples')]
+    #[Test]
     public function uniqueRemovesDuplicateItemsWorks($array, $expected): void
     {
         $flowQuery = new FlowQuery($array);
