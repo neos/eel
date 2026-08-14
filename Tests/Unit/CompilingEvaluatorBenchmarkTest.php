@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit;
 
 /*
@@ -10,20 +13,19 @@ namespace Neos\Eel\Tests\Unit;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use PHPUnit\Framework\Attributes\Group;
+use Neos\Flow\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Neos\Eel\Context;
 use Neos\Eel\CompilingEvaluator;
 
 /**
  * A benchmark to test the compiling evaluator
- *
- * @group benchmark
  */
-class CompilingEvaluatorBenchmarkTest extends \Neos\Flow\Tests\UnitTestCase
+#[Group('benchmark')]
+final class CompilingEvaluatorBenchmarkTest extends UnitTestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function loopedExpressions()
     {
         $this->markTestSkipped('Enable for benchmark');
