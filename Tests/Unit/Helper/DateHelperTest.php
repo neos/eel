@@ -13,14 +13,14 @@ namespace Neos\Eel\Tests\Unit;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
+use Neos\Eel\Helper\DateHelper;
+use Neos\Flow\I18n\Configuration;
+use Neos\Flow\I18n\Formatter\DatetimeFormatter;
+use Neos\Flow\I18n\Locale;
+use Neos\Flow\I18n\Service;
 use Neos\Flow\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-use Neos\Flow\I18n\Configuration;
-use Neos\Flow\I18n\Service;
-use Neos\Flow\I18n\Formatter\DatetimeFormatter;
-use Neos\Eel\Helper\DateHelper;
-use Neos\Flow\I18n\Locale;
 
 /**
  * Tests for DateHelper

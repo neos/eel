@@ -13,12 +13,12 @@ namespace Neos\Eel\Tests\Unit;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
+use Neos\Eel\Context;
+use Neos\Eel\Helper\MathHelper;
+use Neos\Eel\InterpretedEvaluator;
 use Neos\Flow\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-use Neos\Eel\InterpretedEvaluator;
-use Neos\Eel\Context;
-use Neos\Eel\Helper\MathHelper;
 
 /**
  * Tests for MathHelper

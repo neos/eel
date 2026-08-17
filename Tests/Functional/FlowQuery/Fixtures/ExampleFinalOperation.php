@@ -2,8 +2,8 @@
 
 namespace Neos\Eel\Tests\Functional\FlowQuery\Fixtures;
 
-use Neos\Eel\FlowQuery\Operations\AbstractOperation;
 use Neos\Eel\FlowQuery\FlowQuery;
+use Neos\Eel\FlowQuery\Operations\AbstractOperation;
 
 /*
  * This file is part of the Neos.Eel package.
