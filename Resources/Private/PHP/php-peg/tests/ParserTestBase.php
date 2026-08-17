@@ -1,6 +1,8 @@
 <?php
 namespace PhpPeg;
 
+use Neos\Eel\Tests\Unit\FlowQuery\FizzleParserTest;
+
 $base = dirname(dirname(__FILE__));
 
 include_once "$base/Compiler.php";
@@ -8,10 +10,10 @@ include_once "$base/Parser.php";
 
 class ParserTestWrapper {
 
-    private mixed $testcase;
-    private mixed $class;
+    private FizzleParserTest $testcase;
+    private string $class;
 
-    function __construct($testcase, $class) {
+	function __construct(FizzleParserTest $testcase, string $class) {
 		$this->testcase = $testcase;
 		$this->class = $class;
 	}
@@ -40,7 +42,12 @@ class ParserTestWrapper {
 
 class ParserTestBase extends \PHPUnit\Framework\TestCase {
 
-	function buildParser($parser) {
+	public function __construct()
+    {
+        parent::__construct(static::class);
+    }
+
+    function buildParser($parser) {
 		$class = 'Parser' . sha1($parser);
 
 		echo ParserCompiler::compile("class $class extends \PhpPeg\Parser {\n $parser\n}") . "\n\n\n";

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neos\Eel\Tests\Unit\FlowQuery;
 
 /*
@@ -11,7 +13,8 @@ namespace Neos\Eel\Tests\Unit\FlowQuery;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use Neos\Flow\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Neos\Eel\FlowQuery\FizzleParser;
 use PhpPeg\ParserTestWrapper;
 
@@ -20,11 +23,9 @@ require_once(__DIR__ . '/../../../Resources/Private/PHP/php-peg/tests/ParserTest
 /**
  * Fizzle parser test
  */
-class FizzleParserTest extends \Neos\Flow\Tests\UnitTestCase
+final class FizzleParserTest extends UnitTestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function filterGroupIsMatched()
     {
         $parser = new ParserTestWrapper($this, FizzleParser::class);
@@ -39,9 +40,7 @@ class FizzleParserTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertSame('blah', $actual['Filters'][0]['PropertyNameFilter']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function filterIsMatched()
     {
         $parser = new ParserTestWrapper($this, FizzleParser::class);
@@ -71,9 +70,7 @@ class FizzleParserTest extends \Neos\Flow\Tests\UnitTestCase
         $parser->assertDoesntMatch('Filter', '*');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function propertyNameFilterIsMatched()
     {
         $parser = new ParserTestWrapper($this, FizzleParser::class);
@@ -82,9 +79,7 @@ class FizzleParserTest extends \Neos\Flow\Tests\UnitTestCase
         $parser->assertDoesntMatch('PropertyNameFilter', 'Neos.Foo:Bar', 'A TS Object can be used as type selector');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function pathFilterIsMatched()
     {
         $parser = new ParserTestWrapper($this, FizzleParser::class);
@@ -104,9 +99,7 @@ class FizzleParserTest extends \Neos\Flow\Tests\UnitTestCase
         self::assertSame('foo/bar', $actual['PathFilter']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function attributeFilterIsMatched()
     {
         $parser = new ParserTestWrapper($this, FizzleParser::class);
@@ -147,17 +140,15 @@ class FizzleParserTest extends \Neos\Flow\Tests\UnitTestCase
         $parser->assertMatches('AttributeFilter', '[foo instanceof string]');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function booleanOperandsAreConvertedToBoolean()
     {
         $parser = new ParserTestWrapper($this, FizzleParser::class);
 
         $actual = $parser->match('Filter', 'foo[foo=true]');
-        self::assertSame(true, $actual['AttributeFilters'][0]['Operand']);
+        self::assertTrue($actual['AttributeFilters'][0]['Operand']);
 
         $actual = $parser->match('Filter', 'foo[foo= false]');
-        self::assertSame(false, $actual['AttributeFilters'][0]['Operand']);
+        self::assertFalse($actual['AttributeFilters'][0]['Operand']);
     }
 }
